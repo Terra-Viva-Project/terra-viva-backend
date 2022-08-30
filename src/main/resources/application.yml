@@ -59,8 +59,8 @@ spring:
         username: terra_viva_admin
     jpa:
         hibernate:
-            ddl-auto: 'create-drop'
-            dialect: org.hibernate.dialect.MariaDB106Dialect
+            ddl-auto: create-drop
+            dialect: org.hibernate.dialect.MariaDB107Dialect
             format_sql: true
             show_sql: true
         open-in-view: true
