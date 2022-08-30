@@ -56,4 +56,7 @@ public class User{
     //TODO Understand if we need another enity to add data to the relations
     //TODO Understand Cascade type
     private List<Variety> varieties;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Media> media;
 }
