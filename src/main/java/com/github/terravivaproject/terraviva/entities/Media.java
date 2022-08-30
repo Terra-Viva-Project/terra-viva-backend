@@ -29,5 +29,17 @@ public class Media {
     @NotBlank @NotNull
     private LocalDateTime createdOn = LocalDateTime.now();
 
+    @NotBlank
+    @NotNull
+    @Column(length = 50)
+    private String location;
+
+    @NotBlank
+    @NotNull
+    @Column(length = 32)
+    private String mediaMd5;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
 }
