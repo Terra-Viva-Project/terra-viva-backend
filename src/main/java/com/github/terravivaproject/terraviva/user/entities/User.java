@@ -1,11 +1,12 @@
 package com.github.terravivaproject.terraviva.user.entities;
 
-import com.github.terravivaproject.terraviva.entities.Variety;
+import com.github.terravivaproject.terraviva.media.entities.Media;
+import com.github.terravivaproject.terraviva.social.entities.Post;
+import com.github.terravivaproject.terraviva.seed.entities.Variety;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table
@@ -27,8 +29,8 @@ public class User implements UserDetails {
 
     @Id
     @NotBlank @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     private LocalDate birthDate;
     @NotBlank @NotNull
@@ -56,6 +58,12 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Variety.class)
     private List<Variety> varieties;
+
+    @ManyToMany(mappedBy = "likes", fetch = FetchType.LAZY)
+    private List<Post> likedPost;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    private List<Media> media;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

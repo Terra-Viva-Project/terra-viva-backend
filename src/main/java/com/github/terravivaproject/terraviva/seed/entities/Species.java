@@ -1,6 +1,6 @@
-package com.github.terravivaproject.terraviva.entities;
+package com.github.terravivaproject.terraviva.seed.entities;
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Media {
+public class Species {
 
     @Id
     @NotBlank
@@ -27,20 +27,19 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank @NotNull
-    private LocalDateTime createdOn = LocalDateTime.now();
-
-    @NotBlank
     @NotNull
-    @Column(length = 50)
-    private String location;
+    private String scientific_name;
 
-    @NotBlank
-    @NotNull
-    @Column(length = 32)
-    private String mediaMd5;
+    public Species setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User owner;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Varieties> varietiesList;
 
+    public Species setScientific_name(String scientific_name) {
+        this.scientific_name = scientific_name;
+        return this;
+    }
 }
