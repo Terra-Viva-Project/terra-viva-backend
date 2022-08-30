@@ -1,0 +1,88 @@
+#Project Properties
+project:
+    version: '@version@'
+
+#Api Documentation Properties
+springdoc:
+    auto-tag-classes: false
+
+#Mail service Properties
+spring:
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+
+---
+## LOCAL profile
+spring:
+    config:
+        activate:
+            on-profile:
+                - local
+    datasource:
+        url: jdbc:h2:mem:local
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: ''
+    h2:
+        console:
+            enabled: true
+            path: /h2
+
+    jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.H2Dialect
+                globally_quoted_identifiers: true
+        hibernate:
+            ddl-auto: 'create-drop'
+        show_sql: true
+        open-in-view: true
+
+
+---
+## TEST profile
+spring:
+    config:
+        activate:
+            on-profile:
+                - test
+    #Peristence Properties
+    datasource:
+        driver-class-name: org.mariadb.jdbc.Driver
+        username: terra_viva_admin
+    jpa:
+        hibernate:
+            ddl-auto: 'create-drop'
+            dialect: org.hibernate.dialect.MariaDB106Dialect
+            format_sql: true
+            show_sql: true
+        open-in-view: true
+
+---
+
+## LOCAL and TEST profile
+spring:
+    config:
+        activate:
+            on-profile:
+                - test
+                - local.
+#Logging Properties
+logging:
+    level:
+        com:
+            github:
+                terravivaproject:
+                    terraviva: DEBUG
+        org:
+            hibernate:
+                type:
+                    descriptor:
+                        sql: trace

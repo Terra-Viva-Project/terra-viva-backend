@@ -1,5 +1,6 @@
 package com.github.terravivaproject.terraviva.entities;
 
+import com.github.terravivaproject.terraviva.user.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
