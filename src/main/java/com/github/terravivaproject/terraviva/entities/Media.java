@@ -40,6 +40,6 @@ public class Media {
     private String mediaMd5;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private User owner;
 
 }

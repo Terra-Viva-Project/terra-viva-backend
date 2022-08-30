@@ -58,5 +58,5 @@ public class User{
     private List<Variety> varieties;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private Media media;
+    private List<Media> media;
 }
