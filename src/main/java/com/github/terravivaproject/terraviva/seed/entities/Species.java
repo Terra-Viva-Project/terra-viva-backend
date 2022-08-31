@@ -30,14 +30,9 @@ public class Species {
 
     @NotNull
     private String scientific_name;
+    @OneToMany(mappedBy = "species")
+    private List<Variety> varieties;
 
-    public Species setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Varieties> varietiesList;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "species_followers",
@@ -46,8 +41,4 @@ public class Species {
     private List<User> followers;
 
 
-    public Species setScientific_name(String scientific_name) {
-        this.scientific_name = scientific_name;
-        return this;
-    }
 }
