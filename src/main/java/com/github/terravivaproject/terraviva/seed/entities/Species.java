@@ -32,7 +32,7 @@ public class Species {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "species_followers",
-            joinColumns = { @JoinColumn(name = "species_id")},
-            inverseJoinColumns = { @JoinColumn(name = "user_id")})
+            joinColumns = {@JoinColumn(name = "species_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private List<User> followers;
 }
