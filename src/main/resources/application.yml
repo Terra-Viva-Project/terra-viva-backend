@@ -6,8 +6,11 @@ project:
 springdoc:
     auto-tag-classes: false
 
-#Mail service Properties
 spring:
+    #Locale Properties
+    web:
+      locale: en_US
+    #Mail service Properties
     mail:
         host: smtp.gmail.com
         port: 587
@@ -17,6 +20,10 @@ spring:
                     auth: true
                     starttls:
                         enable: true
+    #Jackosn properties
+    jackson:
+        default-property-inclusion: NON_NULL
+
 
 ---
 ## LOCAL profile
@@ -58,11 +65,13 @@ spring:
         driver-class-name: org.mariadb.jdbc.Driver
         username: terra_viva_admin
     jpa:
-        hibernate:
-            ddl-auto: create-drop
-            dialect: org.hibernate.dialect.MariaDB107Dialect
+        show-sql: true
+        properties:
+          hibernate:
             format_sql: true
-            show_sql: true
+        hibernate:
+            ddl-auto: 'create-drop'
+            dialect: org.hibernate.dialect.MariaDB107Dialect
         open-in-view: true
 
 ---
