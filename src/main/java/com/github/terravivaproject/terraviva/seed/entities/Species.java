@@ -1,6 +1,7 @@
 package com.github.terravivaproject.terraviva.seed.entities;
 
 
+import com.github.terravivaproject.terraviva.user.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,13 @@ public class Species {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Varieties> varietiesList;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "species_followers",
+            joinColumns = { @JoinColumn(name = "species_id")},
+            inverseJoinColumns = { @JoinColumn(name = "user_id")})
+    private List<User> followers;
+
 
     public Species setScientific_name(String scientific_name) {
         this.scientific_name = scientific_name;

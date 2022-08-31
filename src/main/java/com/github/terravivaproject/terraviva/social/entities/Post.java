@@ -34,4 +34,7 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private List<User> likes;
+
+    @ManyToMany(mappedBy = "relatedPost")
+    private List<Tag> tags;
 }
