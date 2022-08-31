@@ -2,9 +2,8 @@ package com.github.terravivaproject.terraviva.user.entities;
 
 import com.github.terravivaproject.terraviva.media.entities.Media;
 import com.github.terravivaproject.terraviva.seed.entities.Species;
-import com.github.terravivaproject.terraviva.seed.entities.Varieties;
-import com.github.terravivaproject.terraviva.social.entities.Post;
 import com.github.terravivaproject.terraviva.seed.entities.Variety;
+import com.github.terravivaproject.terraviva.social.entities.Post;
 import com.github.terravivaproject.terraviva.social.entities.Tag;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -72,7 +71,7 @@ public class User implements UserDetails {
     private List<Tag> followedTags;
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-    private List<Varieties> followedVarieties;
+    private List<Variety> followedVarieties;
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
     private List<Species> followedSpecies;
