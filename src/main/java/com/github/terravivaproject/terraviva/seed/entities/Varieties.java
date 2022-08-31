@@ -1,6 +1,7 @@
 package com.github.terravivaproject.terraviva.seed.entities;
 
 import com.github.terravivaproject.terraviva.seed.entities.Species;
+import com.github.terravivaproject.terraviva.user.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -41,6 +43,13 @@ public class Varieties {
 
     @NotBlank @NotNull
     private LocalDateTime dateTime = LocalDateTime.now();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "varieties_followers",
+            joinColumns = { @JoinColumn(name = "variety_id")},
+            inverseJoinColumns = { @JoinColumn(name = "user_id")})
+    private List<User> followers;
+
 
 
 }

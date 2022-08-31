@@ -1,8 +1,11 @@
 package com.github.terravivaproject.terraviva.user.entities;
 
 import com.github.terravivaproject.terraviva.media.entities.Media;
+import com.github.terravivaproject.terraviva.seed.entities.Species;
+import com.github.terravivaproject.terraviva.seed.entities.Varieties;
 import com.github.terravivaproject.terraviva.social.entities.Post;
 import com.github.terravivaproject.terraviva.seed.entities.Variety;
+import com.github.terravivaproject.terraviva.social.entities.Tag;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
@@ -64,6 +67,24 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Media> media;
+
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+    private List<Tag> followedTags;
+
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+    private List<Varieties> followedVarieties;
+
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+    private List<Species> followedSpecies;
+
+    @ManyToMany(mappedBy = "followers")
+    private List<User> followedUser;
+
+    @ManyToMany
+    @JoinTable(name = "user_followers",
+            joinColumns = { @JoinColumn(name = "user_id")},
+            inverseJoinColumns = { @JoinColumn(name = "followers_id")})
+    private List<User> followers;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
