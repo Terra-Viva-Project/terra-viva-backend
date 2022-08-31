@@ -19,7 +19,7 @@ import java.util.List;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Variety {
+public class qVariety {
     @Id
     @NotBlank
     @NotNull
