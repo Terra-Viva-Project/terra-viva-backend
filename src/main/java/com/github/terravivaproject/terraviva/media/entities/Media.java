@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,13 +24,13 @@ import java.util.UUID;
 public class Media {
 
     @Id
-    @NotBlank
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank @NotNull
-    private LocalDateTime createdOn = LocalDateTime.now();
+    @NotNull
+    @CreationTimestamp
+    private LocalDateTime createdOn;
 
     @NotBlank
     @NotNull

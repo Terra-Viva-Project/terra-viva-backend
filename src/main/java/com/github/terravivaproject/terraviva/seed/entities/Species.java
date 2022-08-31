@@ -13,23 +13,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Entity
-@Table
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Species {
-
-    @Id
     @NotBlank
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String scientific_name;
+
     @OneToMany(mappedBy = "species")
     private List<Variety> varieties;
 
@@ -39,6 +35,4 @@ public class Species {
             joinColumns = { @JoinColumn(name = "species_id")},
             inverseJoinColumns = { @JoinColumn(name = "user_id")})
     private List<User> followers;
-
-
 }

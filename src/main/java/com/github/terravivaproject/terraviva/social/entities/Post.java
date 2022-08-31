@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
@@ -22,9 +21,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Post {
     @Id
-    @NotBlank
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private UUID id;
 
     @ManyToMany(fetch = FetchType.LAZY)
