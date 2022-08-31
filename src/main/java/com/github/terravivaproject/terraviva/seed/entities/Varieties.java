@@ -1,19 +1,16 @@
 package com.github.terravivaproject.terraviva.seed.entities;
 
-import com.github.terravivaproject.terraviva.seed.entities.Species;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity
-@Table
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -21,10 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Varieties {
 
-    @Id
     @NotBlank
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -32,15 +27,14 @@ public class Varieties {
     @NotNull
     private String name;
 
-
-    @OneToOne
     private Species species;
 
     //TODO implements @Pattern -> URI
     private String variety_image;
 
-    @NotBlank @NotNull
-    private LocalDateTime dateTime = LocalDateTime.now();
+    @NotNull
+    @CreationTimestamp
+    private LocalDateTime createdOn;
 
 
 }

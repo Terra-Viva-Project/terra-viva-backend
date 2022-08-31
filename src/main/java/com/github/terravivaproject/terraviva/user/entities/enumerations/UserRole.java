@@ -1,4 +1,4 @@
-package com.github.terravivaproject.terraviva.user.entities;
+package com.github.terravivaproject.terraviva.user.entities.enumerations;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,10 +22,15 @@ public enum UserRole {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public static UserRole fromCode(int code){
+    public static UserRole fromCode(int code) {
         return Stream.of(UserRole.values())
                 .filter(c -> c.getCode() == code)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public String toString() {
+        return this.name();
     }
 }

@@ -7,39 +7,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Entity
-@Table
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Species {
-
-    @Id
     @NotBlank
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String scientific_name;
+    private List<Varieties> varietiesList;
 
     public Species setId(Long id) {
         this.id = id;
         return this;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Varieties> varietiesList;
-
-    public Species setScientific_name(String scientific_name) {
-        this.scientific_name = scientific_name;
-        return this;
-    }
 }
