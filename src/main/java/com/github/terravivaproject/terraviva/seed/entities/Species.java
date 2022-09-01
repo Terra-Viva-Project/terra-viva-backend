@@ -13,12 +13,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Species {
+
+    @Id
+    @GeneratedValue
     @NotBlank
     @NotNull
     private Long id;
