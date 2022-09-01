@@ -27,7 +27,7 @@ Quelle che seguono sono delle linee guida per l'utilizzo di questo workflow.
 1. posizioniamo sul branch dal quale voglia creare il nuovo branch (per esempio: "master")
 
 ```bash
-git pull -p origin
+git pull origin master
 git checkout master
 ```
 
@@ -55,7 +55,8 @@ git push origin nome_del_membro_del_team
    branch per il prossimo sprint di lavoro
 
 ```bash
-git pull -p origin
+git fetch -p
+git pull origin master
 git checkout master
 git checkout -b nome_del_membro_del_team
 ```

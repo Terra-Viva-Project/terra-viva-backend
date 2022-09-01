@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.UUIDCharType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,7 +38,8 @@ public class User implements UserDetails {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
     private LocalDate birthDate;
@@ -80,6 +83,9 @@ public class User implements UserDetails {
     @NotNull
     @Column(nullable = false)
     private UserRole userRole = UserRole.USER;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    private List<Post> ownedPost;
 
     @ManyToMany(mappedBy = "likes", fetch = FetchType.LAZY)
     private List<Post> likedPost;
