@@ -1,14 +1,13 @@
 package com.github.terravivaproject.terraviva.social.services;
 
 import com.github.terravivaproject.terraviva.social.entities.Tag;
+import com.github.terravivaproject.terraviva.social.entities.dto.CreationTagDto;
+import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
 import com.github.terravivaproject.terraviva.social.repositories.TagRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -29,4 +28,46 @@ public class TagService {
         }
         return tags;
     }
+
+    public TagDto createTag(CreationTagDto creationTagDto){
+
+        Optional<Tag> optionalTag = tagRepository.findByName(creationTagDto.getName());
+        if (optionalTag.isEmpty()){
+            Tag tag = new Tag();
+            tag.setName(creationTagDto.getName());
+            tagRepository.save(tag);
+            return new TagDto()
+                    .setName(tag.getName())
+                    .setId(tag.getId());
+        }else {
+            return new TagDto()
+                    .setName(optionalTag.get().getName())
+                    .setId(optionalTag.get().getId());
+
+        }
+    }
+
+    public List<TagDto> getAllTags(){
+        List<Tag> tagList = tagRepository.findAll();
+
+        List<TagDto> tagDtoList = new ArrayList<>();
+            for (Tag tag: tagList) {
+                tagDtoList.add(new TagDto()
+                        .setId(tag.getId())
+                        .setName(tag.getName())
+                );
+            }
+            return tagDtoList;
+        }
+
+
+    public TagDto getSingleTag(Long id){
+        Optional<Tag> tag = tagRepository.findById(id);
+        if (tag.isEmpty()) throw new RuntimeException("This tag does not exist");
+
+        return new TagDto()
+                .setId(tag.get().getId())
+                .setName(tag.get().getName());
+    }
+
 }
