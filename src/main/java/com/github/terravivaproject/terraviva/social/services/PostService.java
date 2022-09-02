@@ -30,7 +30,6 @@ public class PostService {
         Set<Tag> tags = tagService.tagFromStrings(creationPostDto.getTags());
 
         Post post = new Post();
-        //tags.forEach(tag -> tag.getRelatedPost().add(post));
         post.setTags(tags)
                 .setOwner(owner.get())
                 .setMessage(creationPostDto.getMessage());

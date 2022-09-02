@@ -25,20 +25,20 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserByUsername(username)
+    public User loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        return userRepository.getByUsernameOrEmail(usernameOrEmail)
                 .orElseThrow(() -> new UsernameNotFoundException(
-                        String.format(USER_NOT_FOUND, username)
+                        String.format(USER_NOT_FOUND, usernameOrEmail)
                 ));
     }
 
     public UserDto signUpUser(User user) {
-        boolean emailAlredyExist = userRepository.existsUserByEmail(user.getEmail());
-        boolean usernameAlredyExist = userRepository.existsUserByUsername(user.getUsername());
+        boolean emailAlreadyExist = userRepository.existsUserByEmail(user.getEmail());
+        boolean usernameAlreadyExist = userRepository.existsUserByUsername(user.getUsername());
 
         List<String> errors = new ArrayList<>();
-        if (emailAlredyExist) errors.add("email: already exists.");
-        if (usernameAlredyExist) errors.add("username: already exists.");
+        if (emailAlreadyExist) errors.add("email -> already exists.");
+        if (usernameAlreadyExist) errors.add("username -> already exists.");
 
         if (!errors.isEmpty()) throw new UserAlreadyExistsException(errors);
 
@@ -46,6 +46,7 @@ public class UserService implements UserDetailsService {
                 passwordEncoder.encode(user.getPassword()));
 
         user = userRepository.save(user);
+
         return UserMapper.MAP.userToUserDto(user);
     }
 }

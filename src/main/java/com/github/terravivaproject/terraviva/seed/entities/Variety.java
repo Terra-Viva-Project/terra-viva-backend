@@ -12,7 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -45,5 +45,5 @@ public class Variety {
     @JoinTable(name = "varieties_followers",
             joinColumns = {@JoinColumn(name = "variety_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private List<User> followers;
+    private Set<User> followers;
 }

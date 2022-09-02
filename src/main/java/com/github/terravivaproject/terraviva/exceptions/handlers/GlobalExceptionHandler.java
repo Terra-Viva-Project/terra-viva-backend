@@ -1,5 +1,6 @@
 package com.github.terravivaproject.terraviva.exceptions.handlers;
 
+import com.github.terravivaproject.terraviva.exceptions.ConfirmationJustExpiredException;
 import com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist;
 import com.github.terravivaproject.terraviva.exceptions.UserAlreadyExistsException;
 import com.github.terravivaproject.terraviva.exceptions.model.ErrorDto;
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
         BindingResult bindingResult = e.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         for (FieldError fieldError : fieldErrors) {
-            errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
+            errors.add(fieldError.getField() + " -> " + fieldError.getDefaultMessage());
         }
 
         return ResponseEntity
@@ -65,12 +66,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({EntityDoesNotExist.class})
-    public ResponseEntity<ErrorDto> userAlreadyExistsExceptionHandler(
+    public ResponseEntity<ErrorDto> entityDoesNotExistExceptionHandler(
             EntityDoesNotExist e,
             HttpServletRequest request) {
         return new ResponseEntity<>(
                 new ErrorDto()
-                        .setError("This user already exists.")
+                        .setError("The searched resource doesn't exist.")
                         .setErrorMessage(e.getMessage())
                         .setStatus(HttpStatus.NOT_FOUND)
                         .setPath(
@@ -78,6 +79,23 @@ public class GlobalExceptionHandler {
                                         .substring(
                                                 request.getContextPath().length())),
                 HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler({ConfirmationJustExpiredException.class})
+    public ResponseEntity<ErrorDto> confirmationJustExpiredExceptionHandler(
+            ConfirmationJustExpiredException e,
+            HttpServletRequest request) {
+        return new ResponseEntity<>(
+                new ErrorDto()
+                        .setError("Too Late...")
+                        .setErrorMessage(e.getMessage())
+                        .setStatus(HttpStatus.NOT_FOUND)
+                        .setPath(
+                                request.getRequestURI()
+                                        .substring(
+                                                request.getContextPath().length())),
+                HttpStatus.NOT_ACCEPTABLE
         );
     }
 }
