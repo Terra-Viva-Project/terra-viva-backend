@@ -7,12 +7,11 @@ import com.github.terravivaproject.terraviva.social.entities.dto.PostDto;
 import com.github.terravivaproject.terraviva.social.repositories.PostRepository;
 import com.github.terravivaproject.terraviva.user.entities.User;
 import com.github.terravivaproject.terraviva.user.repositories.UserRepository;
-import com.github.terravivaproject.terraviva.user.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -25,17 +24,18 @@ public class PostService {
 
     private TagService tagService;
 
-    public PostDto createPost(CreationPostDto creationPostDto){
+    public PostDto createPost(CreationPostDto creationPostDto) {
         Optional<User> owner = userRepository.findById(creationPostDto.getOwner());
-        if(owner.isEmpty()) throw new RuntimeException("The user does not exist");
-        List<Tag> tags = tagService.tagFromStrings(creationPostDto.getTags());
+        if (owner.isEmpty()) throw new RuntimeException("The user does not exist");
+        Set<Tag> tags = tagService.tagFromStrings(creationPostDto.getTags());
 
-        Post post = new Post()
-                .setTags(tags)
+        Post post = new Post();
+        //tags.forEach(tag -> tag.getRelatedPost().add(post));
+        post.setTags(tags)
                 .setOwner(owner.get())
                 .setMessage(creationPostDto.getMessage());
 
-        post = postRepository.save(post);
+        postRepository.save(post);
 
         return new PostDto()
                 .setId(post.getId())
@@ -47,8 +47,8 @@ public class PostService {
 
     public PostDto getPostId(UUID id) {
         Optional<Post> post = postRepository.findById(id);
-        if(post.isEmpty()) throw new RuntimeException("This post does not exist");
-        List<Tag> tags = post.get().getTags();
+        if (post.isEmpty()) throw new RuntimeException("This post does not exist");
+        Set<Tag> tags = post.get().getTags();
         return new PostDto()
                 .setDateTime(post.get().getDateTime())
                 .setMessage(post.get().getMessage())

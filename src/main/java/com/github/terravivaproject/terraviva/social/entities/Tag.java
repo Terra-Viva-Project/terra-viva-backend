@@ -1,6 +1,5 @@
 package com.github.terravivaproject.terraviva.social.entities;
 
-
 import com.github.terravivaproject.terraviva.user.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +8,8 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Accessors(chain = true)
@@ -24,18 +24,30 @@ public class Tag {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE}
+    )
     @JoinTable(name = "tag_followers",
             joinColumns = {@JoinColumn(name = "tag_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private List<User> followers;
+    private Set<User> followers;
 
+    @ManyToMany(mappedBy = "tags")
+    private Set<Post> relatedPost;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "rt_posts_tags",
-            joinColumns = {@JoinColumn(name = "tag_id")},
-            inverseJoinColumns = {@JoinColumn(name = "post_id")})
-    private List<Post> relatedPost;
+    public Set<User> getFollowers() {
+        if (followers == null)
+            followers = new HashSet<>();
+        return followers;
+    }
 
+    public Set<Post> getRelatedPost() {
+        if (relatedPost == null)
+            relatedPost = new HashSet<>();
+        return relatedPost;
+    }
 }
 
