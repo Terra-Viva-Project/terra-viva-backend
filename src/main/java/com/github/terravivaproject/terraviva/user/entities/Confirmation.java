@@ -5,20 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
-@Table
 @Getter
-@Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,23 +22,23 @@ public class Confirmation {
     @NotNull
     @GeneratedValue
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID id;
-
-    @NotBlank
-    @NotNull
-    private String token;
+    private UUID token;
 
     @NotNull
-    @CreationTimestamp
-    private LocalDateTime creationTimestamp;
+    private LocalDateTime creationTimestamp = LocalDateTime.now();
 
     @NotNull
-    private LocalTime expirationTime = LocalTime.of(0, 30);
+    private LocalDateTime expirationTime = LocalDateTime.now()
+            .plusMinutes(30);
 
-    @NotNull
+    @Setter
     private LocalDateTime confirmationTimestamp;
 
-    @ManyToOne
+    @Setter
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinColumn(name = "user_id")
     private User user;
 }
