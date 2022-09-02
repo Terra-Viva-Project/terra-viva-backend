@@ -1,16 +1,12 @@
 package com.github.terravivaproject.terraviva.social.controllers;
 
-import com.github.terravivaproject.terraviva.social.entities.Post;
 import com.github.terravivaproject.terraviva.social.entities.dto.CreationPostDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.PostDto;
-import com.github.terravivaproject.terraviva.social.repositories.PostRepository;
 import com.github.terravivaproject.terraviva.social.services.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.validation.Valid;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +18,7 @@ public class PostController {
 
 
     @PostMapping
-    public PostDto createPost(@Valid @RequestBody CreationPostDto post){
+    public PostDto createPost(@Valid @RequestBody CreationPostDto post) {
         return postService.createPost(post);
     }
 
@@ -32,7 +28,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSinglePost(@PathVariable UUID id){
+    public void deleteSinglePost(@PathVariable UUID id) {
 
         postService.deletePost(id);
     }

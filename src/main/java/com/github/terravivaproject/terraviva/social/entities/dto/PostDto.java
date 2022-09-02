@@ -2,8 +2,6 @@ package com.github.terravivaproject.terraviva.social.entities.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 import java.util.List;

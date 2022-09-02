@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -38,5 +39,5 @@ public class Species {
     @JoinTable(name = "species_followers",
             joinColumns = {@JoinColumn(name = "species_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private List<User> followers;
+    private Set<User> followers;
 }

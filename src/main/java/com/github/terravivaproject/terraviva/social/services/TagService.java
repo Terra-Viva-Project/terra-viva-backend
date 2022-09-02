@@ -5,9 +5,10 @@ import com.github.terravivaproject.terraviva.social.repositories.TagRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -16,22 +17,14 @@ public class TagService {
     private TagRepository tagRepository;
 
 
-    public List<Tag> tagFromStrings(List<String> tagNames) {
-
-        if(tagNames == null || tagNames.isEmpty()) return null;
-
-        List<Tag> tags = new ArrayList<>();
-
-        for (String tagName: tagNames) {
-
+    public Set<Tag> tagFromStrings(List<String> tagNames) {
+        if (tagNames == null || tagNames.isEmpty()) return null;
+        Set<Tag> tags = new HashSet<>();
+        for (String tagName : tagNames) {
             Optional<Tag> tag = tagRepository.findByName(tagName);
-
-            if(tag.isEmpty()) {
-
-                Tag createdTagThatdoesntExist = tagRepository.save(new Tag().setName(tagName));
-
-                tags.add(createdTagThatdoesntExist);
-
+            if (tag.isEmpty()) {
+                Tag createdTagThatDoesNotExist = tagRepository.save(new Tag().setName(tagName));
+                tags.add(createdTagThatDoesNotExist);
             } else tags.add(tag.get());
         }
         return tags;

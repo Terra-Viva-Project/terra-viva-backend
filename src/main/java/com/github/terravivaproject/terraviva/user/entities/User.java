@@ -13,7 +13,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
-import org.hibernate.type.UUIDCharType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -85,25 +85,25 @@ public class User implements UserDetails {
     private UserRole userRole = UserRole.USER;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-    private List<Post> ownedPost;
+    private Set<Post> ownedPost;
 
     @ManyToMany(mappedBy = "likes", fetch = FetchType.LAZY)
-    private List<Post> likedPost;
+    private Set<Post> likedPost;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-    private List<Media> media;
+    private Set<Media> media;
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-    private List<Tag> followedTags;
+    private Set<Tag> followedTags;
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-    private List<Variety> followedVarieties;
+    private Set<Variety> followedVarieties;
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-    private List<Species> followedSpecies;
+    private Set<Species> followedSpecies;
 
     @ManyToMany(mappedBy = "followers")
-    private List<User> followedUser;
+    private Set<User> followedUser;
 
     @ManyToMany
     @JoinTable(name = "user_followers",

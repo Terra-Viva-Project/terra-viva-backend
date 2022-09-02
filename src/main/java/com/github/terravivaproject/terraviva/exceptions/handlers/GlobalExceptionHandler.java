@@ -1,7 +1,9 @@
 package com.github.terravivaproject.terraviva.exceptions.handlers;
 
+import com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist;
 import com.github.terravivaproject.terraviva.exceptions.UserAlreadyExistsException;
 import com.github.terravivaproject.terraviva.exceptions.model.ErrorDto;
+import com.github.terravivaproject.terraviva.exceptions.model.MultipleErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,7 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public ResponseEntity<ErrorDto> yourExceptionHandler(
+    public ResponseEntity<MultipleErrorDto> yourExceptionHandler(
             MethodArgumentNotValidException e,
             HttpServletRequest request) {
         List<String> errors = new ArrayList<>();
@@ -32,7 +34,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .badRequest()
                 .body(
-                        new ErrorDto()
+                        new MultipleErrorDto()
                                 .setStatus(HttpStatus.BAD_REQUEST)
                                 .setError("There are error in the arguments of the request.")
                                 .setErrorMessages(errors)
@@ -45,12 +47,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({UserAlreadyExistsException.class})
-    public ResponseEntity<ErrorDto> userAlreadyExistsExceptionHandler(
+    public ResponseEntity<MultipleErrorDto> userAlreadyExistsExceptionHandler(
             UserAlreadyExistsException e,
             HttpServletRequest request) {
         return ResponseEntity
                 .badRequest()
-                .body(new ErrorDto()
+                .body(new MultipleErrorDto()
                         .setError("This user already exists.")
                         .setErrorMessages(e.getMessages())
                         .setStatus(HttpStatus.BAD_REQUEST)
@@ -60,5 +62,22 @@ public class GlobalExceptionHandler {
                                                 request.getContextPath().length())
                         )
                 );
+    }
+
+    @ExceptionHandler({EntityDoesNotExist.class})
+    public ResponseEntity<ErrorDto> userAlreadyExistsExceptionHandler(
+            EntityDoesNotExist e,
+            HttpServletRequest request) {
+        return new ResponseEntity<>(
+                new ErrorDto()
+                        .setError("This user already exists.")
+                        .setErrorMessage(e.getMessage())
+                        .setStatus(HttpStatus.NOT_FOUND)
+                        .setPath(
+                                request.getRequestURI()
+                                        .substring(
+                                                request.getContextPath().length())),
+                HttpStatus.NOT_FOUND
+        );
     }
 }

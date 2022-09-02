@@ -7,15 +7,16 @@ import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class ErrorDto {
+public class MultipleErrorDto {
     private final LocalDateTime timestamp = LocalDateTime.now();
     private HttpStatus status;
     private String error;
-    private String errorMessage;
+    private List<String> errorMessages;
     private String path;
 }
