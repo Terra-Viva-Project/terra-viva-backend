@@ -29,17 +29,17 @@ public class TagService {
         return tags;
     }
 
-    public TagDto createTag(CreationTagDto creationTagDto){
+    public TagDto createTag(CreationTagDto creationTagDto) {
 
         Optional<Tag> optionalTag = tagRepository.findByName(creationTagDto.getName());
-        if (optionalTag.isEmpty()){
+        if (optionalTag.isEmpty()) {
             Tag tag = new Tag();
             tag.setName(creationTagDto.getName());
             tagRepository.save(tag);
             return new TagDto()
                     .setName(tag.getName())
                     .setId(tag.getId());
-        }else {
+        } else {
             return new TagDto()
                     .setName(optionalTag.get().getName())
                     .setId(optionalTag.get().getId());
@@ -47,21 +47,21 @@ public class TagService {
         }
     }
 
-    public List<TagDto> getAllTags(){
+    public List<TagDto> getAllTags() {
         List<Tag> tagList = tagRepository.findAll();
 
         List<TagDto> tagDtoList = new ArrayList<>();
-            for (Tag tag: tagList) {
-                tagDtoList.add(new TagDto()
-                        .setId(tag.getId())
-                        .setName(tag.getName())
-                );
-            }
-            return tagDtoList;
+        for (Tag tag : tagList) {
+            tagDtoList.add(new TagDto()
+                    .setId(tag.getId())
+                    .setName(tag.getName())
+            );
         }
+        return tagDtoList;
+    }
 
 
-    public TagDto getSingleTag(Long id){
+    public TagDto getSingleTag(Long id) {
         Optional<Tag> tag = tagRepository.findById(id);
         if (tag.isEmpty()) throw new RuntimeException("This tag does not exist");
 
