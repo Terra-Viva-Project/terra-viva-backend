@@ -1,7 +1,7 @@
 package com.github.terravivaproject.terraviva.seed.entities;
 
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +39,5 @@ public class Species {
     @JoinTable(name = "species_followers",
             joinColumns = {@JoinColumn(name = "species_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<User> followers;
+    private Set<AppUser> followers;
 }

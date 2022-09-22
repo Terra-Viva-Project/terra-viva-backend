@@ -6,6 +6,11 @@ project:
 springdoc:
     auto-tag-classes: false
 
+#Prevent report stacktrace in response
+server:
+    error:
+        include-stacktrace: NEVER
+
 spring:
     #Locale Properties
     web:
@@ -24,6 +29,13 @@ spring:
     jackson:
         default-property-inclusion: NON_NULL
 
+buds:
+    realm: terra-viva
+    jwt:
+        secret: Rn75JRy@spVfZIloZZlqv267@tPvS4Gq
+        issuer: buds-security
+        jwtRefreshHourDuration: 8760
+        jwtBearerHourDuration: 2
 
 ---
 ## LOCAL profile
@@ -33,7 +45,7 @@ spring:
             on-profile:
                 - local
     datasource:
-        url: jdbc:h2:mem:local
+        url: jdbc:h2:file:./h2-data/h2
         driver-class-name: org.h2.Driver
         username: sa
         password: ''
@@ -48,7 +60,7 @@ spring:
                 dialect: org.hibernate.dialect.H2Dialect
                 globally_quoted_identifiers: true
         hibernate:
-            ddl-auto: 'create-drop'
+            ddl-auto: update
         show_sql: true
         open-in-view: true
 
@@ -70,7 +82,7 @@ spring:
           hibernate:
             format_sql: true
         hibernate:
-            ddl-auto: 'create-drop'
+            ddl-auto: update
             dialect: org.hibernate.dialect.MariaDB107Dialect
         open-in-view: true
 

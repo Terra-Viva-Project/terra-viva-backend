@@ -1,6 +1,6 @@
 package com.github.terravivaproject.terraviva.user.entities.mappers;
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.entities.dto.RegistrationRequestDto;
 import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
 import org.mapstruct.Mapper;
@@ -12,9 +12,9 @@ public interface UserMapper {
     UserMapper MAP = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "password", ignore = true)
-    UserDto userToUserDto(User user);
+    UserDto userToUserDto(AppUser appUser);
 
-    User userDtoToUser(UserDto userDto);
+    AppUser userDtoToUser(UserDto userDto);
 
-    User registrationRequestDtoToUser(RegistrationRequestDto request);
+    AppUser registrationRequestDtoToUser(RegistrationRequestDto request);
 }

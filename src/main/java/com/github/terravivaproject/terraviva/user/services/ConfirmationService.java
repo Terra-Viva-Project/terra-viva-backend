@@ -2,38 +2,69 @@ package com.github.terravivaproject.terraviva.user.services;
 
 import com.github.terravivaproject.terraviva.exceptions.ConfirmationJustExpiredException;
 import com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist;
+import com.github.terravivaproject.terraviva.resources.ErrorMessagesService;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.entities.Confirmation;
-import com.github.terravivaproject.terraviva.user.entities.User;
 import com.github.terravivaproject.terraviva.user.repositories.ConfirmationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Confirmation service.
+ *
+ * @author Gianluigi De Marco
+ * @version 0.1
+ * @since 09 09 2022
+ */
 @Service
 @AllArgsConstructor
 public class ConfirmationService {
-    private ConfirmationRepository confirmationRepository;
+    private final ConfirmationRepository confirmationRepository;
+    private final UserService userService;
 
-    public Confirmation saveConfirmationToken(User user) {
+    /**
+     * Create new confirmation token confirmation.
+     *
+     * @param appUser the User
+     * @return the confirmation Token
+     */
+    public Confirmation createNewConfirmationToken(AppUser appUser) {
+        //Create a new Confirmation Token
         return confirmationRepository.save(
                 new Confirmation()
-                        .setUser(user)
+                        .setAppUser(appUser)
         );
     }
 
-    public void confirm(UUID token) {
-        Optional<Confirmation> confirmation = confirmationRepository.findById(token);
-        if (confirmation.isEmpty())
-            throw new EntityDoesNotExist("This Confirmation token does not exist");
-        if (confirmation.get().getExpirationTime().isBefore(LocalDateTime.now()))
-            throw new ConfirmationJustExpiredException("the expiration date has already passed");
+    /**
+     * Verify the user and remove the old token
+     *
+     * @param userToken the user token
+     */
+    public void verifyUser(UUID userToken) {
+        //GetToken and Check if it's exist
+        Confirmation confirmation =
+                confirmationRepository.findById(userToken)
+                        .orElseThrow(
+                                () -> new EntityDoesNotExist(ErrorMessagesService.confirmationTokenNotExist())
+                        );
 
-        confirmation.get().setConfirmationTimestamp(LocalDateTime.now());
-        confirmation.get().getUser().setVerified(true);
+        //check if token is not expired
+        if (confirmation.getExpirationTime().isBefore(LocalDateTime.now()))
+            throw new ConfirmationJustExpiredException(
+                    ErrorMessagesService.expirationPassed());
 
-        confirmationRepository.save(confirmation.get());
+        //Set user as verified
+        userService.persistUser(
+                confirmation
+                        .getAppUser()
+                        .setVerified(true)
+        );
+
+        //Delete confirmationToken
+        confirmationRepository.delete(confirmation);
     }
 }

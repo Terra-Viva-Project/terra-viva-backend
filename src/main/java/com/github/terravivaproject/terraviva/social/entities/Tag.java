@@ -1,6 +1,6 @@
 package com.github.terravivaproject.terraviva.social.entities;
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,12 +33,12 @@ public class Tag {
     @JoinTable(name = "tag_followers",
             joinColumns = {@JoinColumn(name = "tag_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<User> followers;
+    private Set<AppUser> followers;
 
     @ManyToMany(mappedBy = "tags")
     private Set<Post> relatedPost;
 
-    public Set<User> getFollowers() {
+    public Set<AppUser> getFollowers() {
         if (followers == null)
             followers = new HashSet<>();
         return followers;

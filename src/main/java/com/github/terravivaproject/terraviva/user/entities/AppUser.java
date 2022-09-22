@@ -13,8 +13,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -22,30 +20,28 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
-@Table
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
-
+@Entity
+@Table(
+        indexes = {
+                @Index(columnList = "username", name = "username_idx"),
+                @Index(columnList = "email", name = "email_idx")
+        }
+)
+public class AppUser {
     @Id
     @NotNull
     @GeneratedValue
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
-
-    private LocalDate birthDate;
-
-    @CreationTimestamp
-    private LocalDateTime subscribedOn;
 
     @NotBlank
     @NotNull
@@ -77,12 +73,22 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean locked = false;
 
+    @NotNull
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "role_id", nullable = false)
+    private Set<UserRole> role = Set.of(UserRole.USER);
+
+    private LocalDate birthDate;
+
+    @CreationTimestamp
+    private LocalDateTime subscribedOn;
+
     @Column(length = 1000)
     private String bio;
-
-    @NotNull
-    @Column(nullable = false)
-    private UserRole userRole = UserRole.USER;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private Set<Post> ownedPost;
@@ -103,41 +109,11 @@ public class User implements UserDetails {
     private Set<Species> followedSpecies;
 
     @ManyToMany(mappedBy = "followers")
-    private Set<User> followedUser;
+    private Set<AppUser> followedAppUser;
 
     @ManyToMany
     @JoinTable(name = "user_followers",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "followers_id")})
-    private List<User> followers;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !locked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.verified;
-    }
+    private List<AppUser> followers;
 }
