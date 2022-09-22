@@ -29,7 +29,7 @@ public class TagController {
     public List<TagDto> tagList() {
         return tagService.getAllTags();
     }
-    
+
     @GetMapping("/{id}")
     public TagDto getSiglTag(@PathVariable Long id) {
         return tagService.getSingleTag(id);
