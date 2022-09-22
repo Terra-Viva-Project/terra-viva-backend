@@ -5,7 +5,7 @@ import com.github.terravivaproject.terraviva.social.entities.Tag;
 import com.github.terravivaproject.terraviva.social.entities.dto.CreationPostDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.PostDto;
 import com.github.terravivaproject.terraviva.social.repositories.PostRepository;
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class PostService {
     private TagService tagService;
 
     public PostDto createPost(CreationPostDto creationPostDto) {
-        Optional<User> owner = userRepository.findById(creationPostDto.getOwner());
+        Optional<AppUser> owner = userRepository.findById(creationPostDto.getOwner());
         if (owner.isEmpty()) throw new RuntimeException("The user does not exist");
         Set<Tag> tags = tagService.tagFromStrings(creationPostDto.getTags());
 

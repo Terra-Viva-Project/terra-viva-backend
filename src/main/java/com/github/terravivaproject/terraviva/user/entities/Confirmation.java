@@ -32,13 +32,10 @@ public class Confirmation {
             .plusMinutes(30);
 
     @Setter
-    private LocalDateTime confirmationTimestamp;
-
-    @Setter
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
     @JoinColumn(name = "user_id")
-    private User user;
+    private AppUser appUser;
 }

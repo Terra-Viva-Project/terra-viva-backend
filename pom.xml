@@ -47,7 +47,6 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.15.3</version>
 		</dependency>
-
 		<!-- PERSISTENCE DEPENDENCY -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -75,9 +74,16 @@
 			<version>1.6.11</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<groupId>dev.dmgiangi</groupId>
+			<artifactId>buds-security</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>

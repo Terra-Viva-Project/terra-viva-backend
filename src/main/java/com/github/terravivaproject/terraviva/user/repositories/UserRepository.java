@@ -1,6 +1,6 @@
 package com.github.terravivaproject.terraviva.user.repositories;
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,13 +9,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
-    @Query("SELECT u FROM User u WHERE u.username = ?1 OR u.email = ?1")
-    Optional<User> getByUsernameOrEmail(String usernameOrEmail);
+public interface UserRepository extends JpaRepository<AppUser, UUID> {
+    @Query("SELECT u FROM AppUser u WHERE u.username = ?1 OR u.email = ?1")
+    Optional<AppUser> getByUsernameOrEmail(String usernameOrEmail);
 
-    Optional<User> findByUsername(String username);
+    Optional<AppUser> findByUsername(String username);
 
-    Optional<User> findByEmail(String email);
+    Optional<AppUser> findByEmail(String email);
 
     boolean existsUserByUsername(String username);
 

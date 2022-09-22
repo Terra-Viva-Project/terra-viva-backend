@@ -1,5 +1,6 @@
 package com.github.terravivaproject.terraviva.user.entities.enumerations;
 
+import com.github.terravivaproject.terraviva.resources.ErrorMessagesService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,14 +20,20 @@ public enum UserRole {
                 : Stream.of(UserRole.values())
                 .filter(r -> role.equalsIgnoreCase(r.name()))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(
+                        () -> new IllegalArgumentException(
+                                ErrorMessagesService.roleNotExist() + "[" + role + "]")
+                );
     }
 
     public static UserRole fromCode(int code) {
         return Stream.of(UserRole.values())
                 .filter(c -> c.getCode() == code)
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(
+                        () -> new IllegalArgumentException(
+                                ErrorMessagesService.roleNotExist() + "[" + code + "]")
+                );
     }
 
     @Override

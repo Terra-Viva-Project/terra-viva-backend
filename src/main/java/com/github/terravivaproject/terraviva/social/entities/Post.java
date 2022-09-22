@@ -1,6 +1,6 @@
 package com.github.terravivaproject.terraviva.social.entities;
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,7 +38,7 @@ public class Post {
     private LocalDateTime dateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User owner;
+    private AppUser owner;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -50,7 +50,7 @@ public class Post {
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private Set<User> likes;
+    private Set<AppUser> likes;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -63,7 +63,7 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags;
 
-    public Set<User> getLikes() {
+    public Set<AppUser> getLikes() {
         if (likes == null)
             likes = new HashSet<>();
         return likes;

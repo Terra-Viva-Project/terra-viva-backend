@@ -8,6 +8,13 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Dto to serialize a generic single cause error
+ *
+ * @author Gianluigi De Marco
+ * @version 0.1
+ * @since 10 09 2022
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

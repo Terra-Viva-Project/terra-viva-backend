@@ -1,8 +1,9 @@
 package com.github.terravivaproject.terraviva.user.controllers;
 
-import com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist;
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
+import com.github.terravivaproject.terraviva.user.entities.mappers.UserMapper;
 import com.github.terravivaproject.terraviva.user.repositories.UserRepository;
+import com.github.terravivaproject.terraviva.user.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +16,13 @@ import java.util.UUID;
 @RequestMapping("users")
 @AllArgsConstructor
 public class UserController {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("{id}")
-    public User getUserById(@PathVariable UUID id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new EntityDoesNotExist("This user does not exist."));
+    public UserDto getUserById(@PathVariable UUID id) {
+        return UserMapper.MAP.userToUserDto(
+                userService.getUserById(id)
+        );
     }
 }

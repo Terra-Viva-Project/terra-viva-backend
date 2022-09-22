@@ -1,10 +1,7 @@
 package com.github.terravivaproject.terraviva.social.entities.dto;
 
-import com.github.terravivaproject.terraviva.social.entities.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @NoArgsConstructor
 @Getter

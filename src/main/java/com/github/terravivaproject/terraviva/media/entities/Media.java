@@ -1,6 +1,6 @@
 package com.github.terravivaproject.terraviva.media.entities;
 
-import com.github.terravivaproject.terraviva.user.entities.User;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Media {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,6 +42,5 @@ public class Media {
     private String mediaMd5;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User owner;
-
+    private AppUser owner;
 }
