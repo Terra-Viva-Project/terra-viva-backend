@@ -35,7 +35,7 @@ public class Post {
 
     @CreationTimestamp
     @Setter(value = AccessLevel.PRIVATE)
-    private LocalDateTime dateTime;
+    private LocalDateTime creationDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private AppUser owner;

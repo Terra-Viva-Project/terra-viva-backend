@@ -40,6 +40,10 @@ public class ErrorMessagesService {
     private static String tooLate;
     @Getter
     private static String emailServiceError;
+    @Getter
+    private static String notEnoughAuthorization;
+    @Getter
+    private static String unauthorized;
 
     public ErrorMessagesService(
             @Value("${error.confirmationTokenNotExist}") String confirmationTokenNotExist,
@@ -51,7 +55,9 @@ public class ErrorMessagesService {
             @Value("${error.resourceNotExist}") String resourceNotExist,
             @Value("${error.requestError}") String requestError,
             @Value("${error.tooLate}") String tooLate,
-            @Value("${error.emailServiceError}") String emailServiceError) {
+            @Value("${error.emailServiceError}") String emailServiceError,
+            @Value("${error.notEnoughAuthorization}") String notEnoughAuthorization,
+            @Value("${error.unauthorized}") String unauthorized) {
         ErrorMessagesService.confirmationTokenNotExist = confirmationTokenNotExist;
         ErrorMessagesService.expirationPassed = expirationPassed;
         ErrorMessagesService.roleNotExist = roleNotExist;
@@ -62,5 +68,7 @@ public class ErrorMessagesService {
         ErrorMessagesService.requestError = requestError;
         ErrorMessagesService.tooLate = tooLate;
         ErrorMessagesService.emailServiceError = emailServiceError;
+        ErrorMessagesService.notEnoughAuthorization = notEnoughAuthorization;
+        ErrorMessagesService.unauthorized = unauthorized;
     }
 }

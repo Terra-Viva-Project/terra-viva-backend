@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.UUID;
 
 @Getter
@@ -23,5 +24,5 @@ public class UserDto extends BasicUserDto {
     private Boolean verified;
     private Boolean locked;
     private String bio;
-    private UserRole userRole;
+    private Collection<UserRole> userRole;
 }

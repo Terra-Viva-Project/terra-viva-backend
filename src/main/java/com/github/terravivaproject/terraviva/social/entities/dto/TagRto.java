@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Getter
-public class CreationTagDto {
+public class TagRto {
 
     @NotNull
     @NotBlank
     private String name;
 
-    public CreationTagDto setName(String name) {
+    public TagRto setName(String name) {
         this.name = name;
         return this;
     }

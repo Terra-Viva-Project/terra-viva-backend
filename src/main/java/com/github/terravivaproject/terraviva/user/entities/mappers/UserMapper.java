@@ -12,9 +12,10 @@ public interface UserMapper {
     UserMapper MAP = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "userRole", source = "appUser.roles")
     UserDto userToUserDto(AppUser appUser);
 
-    AppUser userDtoToUser(UserDto userDto);
+    //AppUser userDtoToUser(UserDto userDto);
 
     AppUser registrationRequestDtoToUser(RegistrationRequestDto request);
 }
