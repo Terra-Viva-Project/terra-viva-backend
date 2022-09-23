@@ -7,6 +7,7 @@ import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
 import com.github.terravivaproject.terraviva.user.entities.mappers.UserMapper;
 import com.github.terravivaproject.terraviva.user.services.ConfirmationService;
 import com.github.terravivaproject.terraviva.user.services.RegistrationService;
+import dev.dmgiangi.budssecurity.authorizzation.annotations.Public;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,7 @@ public class RegistrationController {
      * @param request the request
      * @return the response entity
      */
+    @Public
     @PostMapping
     public ResponseEntity<UserDto> register(@Valid @RequestBody RegistrationRequestDto request) {
         //Register the user
@@ -66,6 +68,7 @@ public class RegistrationController {
      * @param token the token
      * @return the response entity
      */
+    @Public
     @GetMapping("confirm")
     public ResponseEntity<Void> confirmRegistration(@RequestParam UUID token) {
         //Verify the user with the given token

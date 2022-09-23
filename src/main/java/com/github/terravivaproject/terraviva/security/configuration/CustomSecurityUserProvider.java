@@ -6,6 +6,7 @@ import dev.dmgiangi.budssecurity.entity.user.SecurityUser;
 import dev.dmgiangi.budssecurity.entity.user.SecurityUserImpl;
 import dev.dmgiangi.budssecurity.providers.SecurityUserProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * @version 0.1
  * @since 22 09 2022
  */
+@Configuration("securityUserProvider")
 @AllArgsConstructor
 public class CustomSecurityUserProvider implements SecurityUserProvider {
     private final UserRepository userRepository;
@@ -27,7 +29,7 @@ public class CustomSecurityUserProvider implements SecurityUserProvider {
                 .map(u -> new SecurityUserImpl(
                                 u.getId().toString(),
                                 u.getPassword(),
-                                u.getRole()
+                                u.getRoles()
                                         .stream()
                                         .map(UserRole::toString)
                                         .collect(Collectors.toUnmodifiableSet()),

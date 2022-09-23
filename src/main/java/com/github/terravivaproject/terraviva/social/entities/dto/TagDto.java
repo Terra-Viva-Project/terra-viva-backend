@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class TagDto extends CreationTagDto {
+public class TagDto extends TagRto {
 
 
     private long id;

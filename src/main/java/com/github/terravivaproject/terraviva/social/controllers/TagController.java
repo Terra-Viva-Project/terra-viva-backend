@@ -1,7 +1,7 @@
 package com.github.terravivaproject.terraviva.social.controllers;
 
-import com.github.terravivaproject.terraviva.social.entities.dto.CreationTagDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
+import com.github.terravivaproject.terraviva.social.entities.dto.TagRto;
 import com.github.terravivaproject.terraviva.social.services.TagService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class TagController {
 
 
     @PostMapping("")
-    public TagDto tagCreate(@Valid @RequestBody CreationTagDto nameTag) {
+    public TagDto tagCreate(@Valid @RequestBody TagRto nameTag) {
 
         return tagService.createTag(nameTag);
     }

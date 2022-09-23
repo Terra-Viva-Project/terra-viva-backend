@@ -80,7 +80,7 @@ public class AppUser {
             joinColumns = @JoinColumn(name = "user_id")
     )
     @Column(name = "role_id", nullable = false)
-    private Set<UserRole> role = Set.of(UserRole.USER);
+    private Set<UserRole> roles = Set.of(UserRole.USER);
 
     private LocalDate birthDate;
 

@@ -1,8 +1,8 @@
 package com.github.terravivaproject.terraviva.social.services;
 
 import com.github.terravivaproject.terraviva.social.entities.Tag;
-import com.github.terravivaproject.terraviva.social.entities.dto.CreationTagDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
+import com.github.terravivaproject.terraviva.social.entities.dto.TagRto;
 import com.github.terravivaproject.terraviva.social.repositories.TagRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class TagService {
     private TagRepository tagRepository;
 
 
-    public Set<Tag> tagFromStrings(List<String> tagNames) {
+    public Set<Tag> tagFromStrings(Collection<String> tagNames) {
         if (tagNames == null || tagNames.isEmpty()) return null;
         Set<Tag> tags = new HashSet<>();
         for (String tagName : tagNames) {
@@ -29,12 +29,12 @@ public class TagService {
         return tags;
     }
 
-    public TagDto createTag(CreationTagDto creationTagDto) {
+    public TagDto createTag(TagRto tagRto) {
 
-        Optional<Tag> optionalTag = tagRepository.findByName(creationTagDto.getName());
+        Optional<Tag> optionalTag = tagRepository.findByName(tagRto.getName());
         if (optionalTag.isEmpty()) {
             Tag tag = new Tag();
-            tag.setName(creationTagDto.getName());
+            tag.setName(tagRto.getName());
             tagRepository.save(tag);
             return new TagDto()
                     .setName(tag.getName())
