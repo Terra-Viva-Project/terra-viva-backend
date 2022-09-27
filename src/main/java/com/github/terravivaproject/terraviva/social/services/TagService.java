@@ -70,4 +70,7 @@ public class TagService {
                 .setName(tag.get().getName());
     }
 
+    public Optional<Tag> getTagByName(String tagName) {
+        return tagRepository.findByName(tagName);
+    }
 }
