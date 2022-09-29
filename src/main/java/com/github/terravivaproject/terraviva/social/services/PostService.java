@@ -5,6 +5,7 @@ import com.github.terravivaproject.terraviva.exceptions.UnauthorizedException;
 import com.github.terravivaproject.terraviva.resources.ErrorMessagesService;
 import com.github.terravivaproject.terraviva.social.entities.Post;
 import com.github.terravivaproject.terraviva.social.entities.Tag;
+import com.github.terravivaproject.terraviva.social.entities.dto.PostDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.PostRto;
 import com.github.terravivaproject.terraviva.social.entities.mappers.PostMapper;
 import com.github.terravivaproject.terraviva.social.repositories.PostRepository;
@@ -12,10 +13,11 @@ import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.services.UserService;
 import dev.dmgiangi.budssecurity.securitycontext.SecurityContext;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -67,5 +69,13 @@ public class PostService {
             );
 
         postRepository.deleteById(id);
+    }
+
+
+    public List<PostDto> getPostsByTag(String tagName, Integer page, Integer size) {
+        Optional<Tag> tag = tagService.getTagByName(tagName);
+        if(tag.isEmpty()) return Collections.emptyList();
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findByTags(tag.get(), pageable);
     }
 }

@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,5 +52,11 @@ public class Tag {
             relatedPost = new HashSet<>();
         return relatedPost;
     }
+
+    @CreationTimestamp
+    private LocalDateTime subscribedOn;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedOn;
 }
 

@@ -3,11 +3,18 @@ package com.github.terravivaproject.terraviva.social.services;
 import com.github.terravivaproject.terraviva.social.entities.Tag;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagRto;
+import com.github.terravivaproject.terraviva.social.entities.mappers.TagMapper;
 import com.github.terravivaproject.terraviva.social.repositories.TagRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -70,4 +77,21 @@ public class TagService {
                 .setName(tag.get().getName());
     }
 
+    public Optional<Tag> getTagByName(String tagName) {
+        return tagRepository.findByName(tagName);
+    }
+
+    public Page<TagDto> getPagedResetUpdatedTag(Integer size, Integer page) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedOn"));
+        Page<Tag> tagsPage = tagRepository.findAll(pageable);
+        return tagsPage
+                .map(
+                        new Function<Tag, TagDto>() {
+                            @Override
+                            public TagDto apply(Tag tag) {
+                                return TagMapper.MAP.entityToDto(tag);
+                            }
+                        });
+
+    }
 }
