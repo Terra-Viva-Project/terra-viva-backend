@@ -10,6 +10,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ * BasicUserDto class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

@@ -24,6 +24,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * AppUser class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

@@ -8,13 +8,27 @@ package com.github.terravivaproject.terraviva.exceptions;
  * @since 10 09 2022
  */
 public class ConfirmationJustExpiredException extends RuntimeException {
+    /**
+     * Constructor for ConfirmationJustExpiredException.
+     */
     public ConfirmationJustExpiredException() {
     }
 
+    /**
+     * Constructor for ConfirmationJustExpiredException.
+     *
+     * @param message a {@link java.lang.String} object
+     */
     public ConfirmationJustExpiredException(String message) {
         super(message);
     }
 
+    /**
+     * Constructor for ConfirmationJustExpiredException.
+     *
+     * @param message a {@link java.lang.String} object
+     * @param cause   a {@link java.lang.Throwable} object
+     */
     public ConfirmationJustExpiredException(String message, Throwable cause) {
         super(message, cause);
     }

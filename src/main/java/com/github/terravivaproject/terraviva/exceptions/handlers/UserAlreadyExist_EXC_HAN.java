@@ -19,6 +19,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class UserAlreadyExist_EXC_HAN {
+    /**
+     * userAlreadyExistsExceptionHandler.
+     *
+     * @param e       a {@link com.github.terravivaproject.terraviva.exceptions.UserAlreadyExistsException} object
+     * @param request a {@link javax.servlet.http.HttpServletRequest} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @ExceptionHandler({UserAlreadyExistsException.class})
     public ResponseEntity<MultipleErrorDto> userAlreadyExistsExceptionHandler(
             UserAlreadyExistsException e,

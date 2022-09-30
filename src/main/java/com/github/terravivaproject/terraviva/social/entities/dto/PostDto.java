@@ -9,6 +9,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * PostDto class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

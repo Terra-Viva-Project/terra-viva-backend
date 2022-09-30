@@ -6,12 +6,24 @@ import lombok.Getter;
 
 import java.util.stream.Stream;
 
+/**
+ * UserRole class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Getter
 @AllArgsConstructor
 public enum UserRole {
     USER(1),
     ADMIN(2);
 
+    /**
+     * fromString.
+     *
+     * @param role a {@link java.lang.String} object
+     * @return a {@link com.github.terravivaproject.terraviva.user.entities.enumerations.UserRole} object
+     */
     private final int code;
 
     public static UserRole fromString(String role) {
@@ -26,6 +38,12 @@ public enum UserRole {
                 );
     }
 
+    /**
+     * fromCode.
+     *
+     * @param code a int
+     * @return a {@link com.github.terravivaproject.terraviva.user.entities.enumerations.UserRole} object
+     */
     public static UserRole fromCode(int code) {
         return Stream.of(UserRole.values())
                 .filter(c -> c.getCode() == code)
@@ -36,6 +54,9 @@ public enum UserRole {
                 );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return this.name();

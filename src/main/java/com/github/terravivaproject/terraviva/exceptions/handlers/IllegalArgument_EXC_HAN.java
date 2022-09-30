@@ -18,6 +18,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class IllegalArgument_EXC_HAN {
+    /**
+     * illegalArgumentExceptionHandler.
+     *
+     * @param e       a {@link java.lang.IllegalArgumentException} object
+     * @param request a {@link javax.servlet.http.HttpServletRequest} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<ErrorDto> illegalArgumentExceptionHandler(
             IllegalArgumentException e,

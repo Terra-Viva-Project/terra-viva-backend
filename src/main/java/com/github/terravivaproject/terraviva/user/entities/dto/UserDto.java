@@ -12,6 +12,12 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
 
+/**
+ * UserDto class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Getter
 @Setter
 @NoArgsConstructor

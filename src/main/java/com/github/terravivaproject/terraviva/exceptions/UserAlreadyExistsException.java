@@ -18,10 +18,21 @@ import java.util.Map;
 public class UserAlreadyExistsException extends RuntimeException {
     private Map<String, List<String>> messages;
 
+    /**
+     * Constructor for UserAlreadyExistsException.
+     *
+     * @param messages a {@link java.util.Map} object
+     */
     public UserAlreadyExistsException(Map<String, List<String>> messages) {
         this.messages = messages;
     }
 
+    /**
+     * Constructor for UserAlreadyExistsException.
+     *
+     * @param cause    a {@link java.lang.Throwable} object
+     * @param messages a {@link java.util.Map} object
+     */
     public UserAlreadyExistsException(Throwable cause, Map<String, List<String>> messages) {
         super(cause);
         this.messages = messages;

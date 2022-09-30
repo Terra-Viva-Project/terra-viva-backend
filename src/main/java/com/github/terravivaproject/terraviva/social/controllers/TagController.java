@@ -2,16 +2,20 @@ package com.github.terravivaproject.terraviva.social.controllers;
 
 import com.github.terravivaproject.terraviva.social.entities.dto.PostDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
-import com.github.terravivaproject.terraviva.social.entities.dto.TagRto;
 import com.github.terravivaproject.terraviva.social.services.PostService;
 import com.github.terravivaproject.terraviva.social.services.TagService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * TagController class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @RestController
 @RequestMapping("/tags")
 @AllArgsConstructor
@@ -24,10 +28,11 @@ public class TagController {
 
     /**
      * Return a pageable list of Post with the selected tag
+     *
      * @param tagName is the name of the tag
-     * @param page is the request page number
-     * @param size number of the element in the page
-     * @return
+     * @param page    is the request page number
+     * @param size    number of the element in the page
+     * @return a {@link java.util.List} object
      */
     @GetMapping("/{tagName}")
     public List<PostDto> tagList(
@@ -45,9 +50,10 @@ public class TagController {
 
     /**
      * Return all the tags ordered by the last update
+     *
      * @param page is the request page number
      * @param size number of the element in the page
-     * @return
+     * @return a {@link org.springframework.data.domain.Page} object
      */
     @GetMapping
     public Page<TagDto> getUpdatedTags(
@@ -59,7 +65,7 @@ public class TagController {
         //if the user indicate a negative size or a size over 20 we set it to 10
         if(size < 0 || size > 20) size = 10;
 
-        return tagService.getPagedResetUpdatedTag(size, page);
+        return tagService.getPagedRecentUpdatedTag(size, page);
     }
 
 

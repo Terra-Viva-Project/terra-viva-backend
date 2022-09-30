@@ -14,6 +14,12 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Species class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Entity
 @Getter
 @Setter

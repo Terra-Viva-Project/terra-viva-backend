@@ -20,6 +20,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class EmailService_EXC_HAN {
+    /**
+     * entityDoesNotExistExceptionHandler.
+     *
+     * @param e       a {@link com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist} object
+     * @param request a {@link javax.servlet.http.HttpServletRequest} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @ExceptionHandler({EmailServiceException.class})
     public ResponseEntity<ErrorDto> entityDoesNotExistExceptionHandler(
             EntityDoesNotExist e,

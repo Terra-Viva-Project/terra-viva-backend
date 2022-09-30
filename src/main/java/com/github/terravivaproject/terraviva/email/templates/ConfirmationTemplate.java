@@ -21,6 +21,12 @@ public class ConfirmationTemplate extends EmailTemplate {
     private static File logoImage = null;
     private static File htmlBody = null;
 
+    /**
+     * Constructor for ConfirmationTemplate.
+     *
+     * @param fullName a {@link java.lang.String} object
+     * @param link     a {@link java.lang.String} object
+     */
     public ConfirmationTemplate(String fullName, String link) {
         //Load resource file
         ConfirmationTemplate.loadResources();

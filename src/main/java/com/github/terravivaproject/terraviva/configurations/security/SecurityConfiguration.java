@@ -1,6 +1,6 @@
-package com.github.terravivaproject.terraviva.security.configuration;
+package com.github.terravivaproject.terraviva.configurations.security;
 
-import dev.dmgiangi.budssecurity.BudsSecurityConfiguration;
+import dev.dmgiangi.budssecurity.configuration.BudsSecurityConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(BudsSecurityConfiguration.class)
 public class SecurityConfiguration {
+
 
 }
 
