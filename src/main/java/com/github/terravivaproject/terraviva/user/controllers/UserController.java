@@ -1,5 +1,6 @@
 package com.github.terravivaproject.terraviva.user.controllers;
 
+import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
 import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
 import com.github.terravivaproject.terraviva.user.entities.mappers.UserMapper;
 import com.github.terravivaproject.terraviva.user.repositories.UserRepository;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
+import java.util.List;
 
 /**
  * UserController class.
@@ -31,14 +32,23 @@ public class UserController {
     /**
      * getUserById.
      *
-     * @param id a {@link java.util.UUID} object
+     * @param username a {@link java.lang.String} object
      * @return a {@link com.github.terravivaproject.terraviva.user.entities.dto.UserDto} object
      */
     @Public
-    @GetMapping("{id}")
-    public UserDto getUserById(@PathVariable UUID id) {
+    @GetMapping("{username}")
+    public UserDto getUserById(@PathVariable String username) {
         return UserMapper.MAP.userToUserDto(
-                userService.getUserById(id)
+                userService.getUserByUsername(username)
+        );
+    }
+
+    @Public
+    @GetMapping("/{username}/followed-tags")
+    public List<TagDto> getFolloweTags(@PathVariable String username) {
+        userService.getUserByUsername(username);
+        return userService.getTagsFollowedBy(
+                userService.getUserByUsername(username)
         );
     }
 }

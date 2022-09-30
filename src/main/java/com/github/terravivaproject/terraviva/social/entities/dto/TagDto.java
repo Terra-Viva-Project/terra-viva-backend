@@ -2,6 +2,10 @@ package com.github.terravivaproject.terraviva.social.entities.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
 
 /**
  * TagDto class.
@@ -11,29 +15,15 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Getter
+@Setter
+@Accessors(chain = true)
 public class TagDto extends TagRto {
-
-
     private long id;
+    private LocalDateTime updatedOn;
 
-    /**
-     * Setter for the field <code>id</code>.
-     *
-     * @param id a long
-     * @return a {@link com.github.terravivaproject.terraviva.social.entities.dto.TagDto} object
-     */
-    public TagDto setId(long id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public TagDto setName(String name) {
         super.setName(name);
         return this;
     }
-
 }

@@ -1,19 +1,20 @@
 package com.github.terravivaproject.terraviva.social.services;
 
+import com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist;
 import com.github.terravivaproject.terraviva.social.entities.Tag;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagRto;
 import com.github.terravivaproject.terraviva.social.entities.mappers.TagMapper;
 import com.github.terravivaproject.terraviva.social.repositories.TagRepository;
+import com.github.terravivaproject.terraviva.user.entities.AppUser;
+import com.github.terravivaproject.terraviva.user.entities.dto.MinimalUserDto;
+import com.github.terravivaproject.terraviva.user.entities.mappers.UserMapper;
+import com.github.terravivaproject.terraviva.user.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 
 /**
  * TagService class.
@@ -26,7 +27,7 @@ import java.util.function.Function;
 public class TagService {
 
     private TagRepository tagRepository;
-
+    private UserService userService;
 
     /**
      * tagFromStrings.
@@ -128,13 +129,47 @@ public class TagService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedOn"));
         Page<Tag> tagsPage = tagRepository.findAll(pageable);
         return tagsPage
-                .map(
-                        new Function<Tag, TagDto>() {
-                            @Override
-                            public TagDto apply(Tag tag) {
-                                return TagMapper.MAP.entityToDto(tag);
-                            }
-                        });
+                .map(TagMapper.MAP::entityToDto);
 
+    }
+
+    public void followTag(String tagName) {
+        Tag tag = this.getTagByName(tagName)
+                .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
+                );
+
+        AppUser authenticatedUser = userService.getAuthenticatedUser();
+
+        tag.getFollowers().add(authenticatedUser);
+        tagRepository.save(tag);
+    }
+
+    public Page<MinimalUserDto> getTagFollower(String tagName, Integer page, Integer size) {
+        Tag tag = this.getTagByName(tagName)
+                .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
+                );
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedOn"));
+
+        List<MinimalUserDto> tagFollower = tag
+                .getFollowers()
+                .stream()
+                .map(
+                        UserMapper.MAP::entityToMinimalDto)
+                .sorted(Comparator.comparing(MinimalUserDto::getUsername))
+                .toList();
+
+        return new PageImpl<>(tagFollower, pageable, tagFollower.size());
+    }
+
+    public void unfollowTag(String tagName) {
+        Tag tag = this.getTagByName(tagName)
+                .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
+                );
+
+        AppUser authenticatedUser = userService.getAuthenticatedUser();
+
+        tag.getFollowers().remove(authenticatedUser);
+        tagRepository.save(tag);
     }
 }

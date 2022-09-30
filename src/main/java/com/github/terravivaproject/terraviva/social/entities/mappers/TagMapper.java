@@ -2,6 +2,7 @@ package com.github.terravivaproject.terraviva.social.entities.mappers;
 
 import com.github.terravivaproject.terraviva.social.entities.Tag;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -10,6 +11,7 @@ import org.mapstruct.factory.Mappers;
  * @author giangi
  * @version $Id: $Id
  */
+@Mapper
 public interface TagMapper {
     /**
      * Constant <code>MAP</code>
