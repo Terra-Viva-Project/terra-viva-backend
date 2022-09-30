@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 /**
@@ -26,6 +26,6 @@ public class PostRto {
 
     @NotNull
     @NotBlank
-    @Max(1000)
+    @Size(min = 1, max = 1000)
     private String message;
 }

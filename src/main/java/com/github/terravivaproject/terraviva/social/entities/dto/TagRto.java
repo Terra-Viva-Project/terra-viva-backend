@@ -2,6 +2,8 @@ package com.github.terravivaproject.terraviva.social.entities.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,21 +16,11 @@ import javax.validation.constraints.NotNull;
  */
 @NoArgsConstructor
 @Getter
+@Setter
+@Accessors(chain = true)
 public class TagRto {
 
     @NotNull
     @NotBlank
     private String name;
-
-    /**
-     * Setter for the field <code>name</code>.
-     *
-     * @param name a {@link java.lang.String} object
-     * @return a {@link com.github.terravivaproject.terraviva.social.entities.dto.TagRto} object
-     */
-    public TagRto setName(String name) {
-        this.name = name;
-        return this;
-    }
-
 }

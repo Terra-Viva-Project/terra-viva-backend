@@ -1,6 +1,7 @@
 package com.github.terravivaproject.terraviva.user.entities.mappers;
 
 import com.github.terravivaproject.terraviva.user.entities.AppUser;
+import com.github.terravivaproject.terraviva.user.entities.dto.MinimalUserDto;
 import com.github.terravivaproject.terraviva.user.entities.dto.RegistrationRequestDto;
 import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
 import org.mapstruct.Mapper;
@@ -39,4 +40,6 @@ public interface UserMapper {
      * @return a {@link com.github.terravivaproject.terraviva.user.entities.AppUser} object
      */
     AppUser registrationRequestDtoToUser(RegistrationRequestDto request);
+
+    MinimalUserDto entityToMinimalDto(AppUser u);
 }

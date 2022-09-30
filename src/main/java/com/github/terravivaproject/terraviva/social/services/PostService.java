@@ -12,12 +12,14 @@ import com.github.terravivaproject.terraviva.social.repositories.PostRepository;
 import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * PostService class.
@@ -94,15 +96,13 @@ public class PostService {
      * @param size    a {@link java.lang.Integer} object
      * @return a {@link java.util.List} object
      */
-    public List<PostDto> getPostsByTag(String tagName, Integer page, Integer size) {
+    public Page<PostDto> getPostsByTag(String tagName, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Optional<Tag> tag = tagService.getTagByName(tagName);
 
         return tag
                 .map(t -> postRepository.findByTags(t, pageable))
-                .orElse(Collections.emptyList())
-                .stream()
-                .map(PostMapper.MAP::entityToDto)
-                .collect(Collectors.toList());
+                .orElse(Page.empty())
+                .map(PostMapper.MAP::entityToDto);
     }
 }
