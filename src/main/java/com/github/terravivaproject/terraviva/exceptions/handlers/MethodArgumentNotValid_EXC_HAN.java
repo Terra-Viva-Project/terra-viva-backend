@@ -23,6 +23,13 @@ import java.util.stream.Collectors;
  */
 @ControllerAdvice
 public class MethodArgumentNotValid_EXC_HAN {
+    /**
+     * methodArgumentNotValidExceptionHandler.
+     *
+     * @param e       a {@link org.springframework.web.bind.MethodArgumentNotValidException} object
+     * @param request a {@link javax.servlet.http.HttpServletRequest} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<MultipleErrorDto> methodArgumentNotValidExceptionHandler(
             MethodArgumentNotValidException e,

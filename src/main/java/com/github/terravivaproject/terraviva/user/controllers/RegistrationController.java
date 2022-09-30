@@ -7,7 +7,7 @@ import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
 import com.github.terravivaproject.terraviva.user.entities.mappers.UserMapper;
 import com.github.terravivaproject.terraviva.user.services.ConfirmationService;
 import com.github.terravivaproject.terraviva.user.services.RegistrationService;
-import dev.dmgiangi.budssecurity.authorizzation.annotations.Public;
+import dev.dmgiangi.budssecurity.authorizations.annotations.Public;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

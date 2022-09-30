@@ -1,5 +1,6 @@
 package com.github.terravivaproject.terraviva;
 
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -11,14 +12,31 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+/**
+ * TerraVivaApplication class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @SpringBootApplication
 @EnableAsync
 public class TerraVivaApplication {
 
+    /**
+     * main.
+     *
+     * @param args an array of {@link java.lang.String} objects
+     */
     public static void main(String[] args) {
         SpringApplication.run(TerraVivaApplication.class, args);
     }
 
+    /**
+     * customOpenAPI.
+     *
+     * @param appVersion a {@link java.lang.String} object
+     * @return a {@link io.swagger.v3.oas.models.OpenAPI} object
+     */
     @Bean
     public OpenAPI customOpenAPI(@Value("${project.version}") String appVersion) {
         return new OpenAPI()

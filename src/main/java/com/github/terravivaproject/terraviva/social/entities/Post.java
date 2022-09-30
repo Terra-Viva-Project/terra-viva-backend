@@ -14,6 +14,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Post class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Entity
 @Table
 @Getter
@@ -31,6 +37,7 @@ public class Post {
 
     @NotBlank
     @NotNull
+    @Column(length = 1000)
     private String message;
 
     @CreationTimestamp
@@ -63,12 +70,22 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags;
 
+    /**
+     * Getter for the field <code>likes</code>.
+     *
+     * @return a {@link java.util.Set} object
+     */
     public Set<AppUser> getLikes() {
         if (likes == null)
             likes = new HashSet<>();
         return likes;
     }
 
+    /**
+     * Getter for the field <code>tags</code>.
+     *
+     * @return a {@link java.util.Set} object
+     */
     public Set<Tag> getTags() {
         if (tags == null)
             tags = new HashSet<>();

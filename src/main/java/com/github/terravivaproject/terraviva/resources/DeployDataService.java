@@ -23,6 +23,11 @@ public class DeployDataService {
     @Getter
     private static String registrationServiceEmail;
 
+    /**
+     * Constructor for DeployDataService.
+     *
+     * @param registrationServiceEmail a {@link java.lang.String} object
+     */
     public DeployDataService(
             @Value("${registrationServiceEmail}") String registrationServiceEmail) {
         DeployDataService.registrationServiceEmail = registrationServiceEmail;

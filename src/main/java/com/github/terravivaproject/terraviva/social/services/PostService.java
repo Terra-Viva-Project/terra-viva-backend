@@ -11,14 +11,20 @@ import com.github.terravivaproject.terraviva.social.entities.mappers.PostMapper;
 import com.github.terravivaproject.terraviva.social.repositories.PostRepository;
 import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.services.UserService;
-import dev.dmgiangi.budssecurity.securitycontext.SecurityContext;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+/**
+ * PostService class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Service
 @AllArgsConstructor
 public class PostService {
@@ -27,55 +33,76 @@ public class PostService {
     private final TagService tagService;
     private final UserService userService;
 
-    public Post createPost(PostRto postRequest) {
+    /**
+     * Create a new post from a given PostRto
+     *
+     * @param postRequest a PostRto Object
+     * @return a Post Entity
+     */
+    public PostDto createPost(PostRto postRequest) {
+        AppUser owner = userService.getAuthenticatedUser();
+
         //Map a set Of Tag entities from the strings found in PostRto
         Set<Tag> tags = tagService.tagFromStrings(postRequest.getTags());
 
-        //Get the user from the UserService using the Security user from the SecurityContext
-        AppUser postOwner = userService.getUserById(
-                UUID.fromString(
-                        SecurityContext.getUser().getMainIdentifier()
-                )
-        );
-
         //create a new post entity
-        Post newPost = PostMapper.MAP.rtoToEntity(postRequest, postOwner, tags);
+        Post newPost = PostMapper.MAP.rtoToEntity(postRequest, owner, tags);
 
-        return postRepository.save(newPost);
+        //Persist new Post
+        return PostMapper.MAP.entityToDto(
+                postRepository.save(newPost)
+        );
     }
 
-    public Post getPostId(UUID id) {
+    /**
+     * getPostById.
+     *
+     * @param id a {@link java.util.UUID} object
+     * @return a {@link com.github.terravivaproject.terraviva.social.entities.Post} object
+     */
+    public Post getPostById(UUID id) {
         return postRepository.findById(id)
                 .orElseThrow(() -> new EntityDoesNotExist(
                         ErrorMessagesService.resourceNotExist()
                 ));
     }
 
-    public void deletePost(UUID id) {
-        Post post = postRepository.findById(id)
-                .orElseThrow(() -> new EntityDoesNotExist(
-                        ErrorMessagesService.resourceNotExist()
-                ));
+    /**
+     * deletePost.
+     *
+     * @param postId a {@link java.util.UUID} object
+     */
+    public void deletePost(UUID postId) {
+        AppUser applicant = userService.getAuthenticatedUser();
 
-        UUID authenticatedUserId =
-                UUID.fromString(
-                        SecurityContext.getUser().getMainIdentifier()
-                );
+        Post post = getPostById(postId);
 
-        // TODO: 23/09/22 permits roles check
-        if (!post.getOwner().getId().equals(authenticatedUserId))
+        if (!post.getOwner().getId().equals(applicant.getId()))
             throw new UnauthorizedException(
                     ErrorMessagesService.notEnoughAuthorization()
             );
 
-        postRepository.deleteById(id);
+        postRepository.deleteById(postId);
     }
 
 
+    /**
+     * getPostsByTag.
+     *
+     * @param tagName a {@link java.lang.String} object
+     * @param page    a {@link java.lang.Integer} object
+     * @param size    a {@link java.lang.Integer} object
+     * @return a {@link java.util.List} object
+     */
     public List<PostDto> getPostsByTag(String tagName, Integer page, Integer size) {
-        Optional<Tag> tag = tagService.getTagByName(tagName);
-        if(tag.isEmpty()) return Collections.emptyList();
         Pageable pageable = PageRequest.of(page, size);
-        return postRepository.findByTags(tag.get(), pageable);
+        Optional<Tag> tag = tagService.getTagByName(tagName);
+
+        return tag
+                .map(t -> postRepository.findByTags(t, pageable))
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(PostMapper.MAP::entityToDto)
+                .collect(Collectors.toList());
     }
 }

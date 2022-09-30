@@ -1,111 +1,113 @@
 #Project Properties
 project:
-    version: '@version@'
+  version: '@version@'
 
 #Api Documentation Properties
 springdoc:
-    auto-tag-classes: false
+  auto-tag-classes: false
 
 #Prevent report stacktrace in response
 server:
-    error:
-        include-stacktrace: NEVER
+  error:
+    include-stacktrace: NEVER
 
 spring:
-    #Locale Properties
-    web:
-      locale: en_US
-    #Mail service Properties
-    mail:
-        host: smtp.gmail.com
-        port: 587
-        properties:
-            mail:
-                smtp:
-                    auth: true
-                    starttls:
-                        enable: true
-    #Jackosn properties
-    jackson:
-        default-property-inclusion: NON_NULL
-    main:
-        allow-bean-definition-overriding: true
+
+  #Locale Properties
+  web:
+    locale: en_US
+  #Mail service Properties
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
 
 buds:
-    realm: terra-viva
-    jwt:
-        secret: Rn75JRy@spVfZIloZZlqv267@tPvS4Gq
-        issuer: buds-security
-        jwtRefreshHourDuration: 8760
-        jwtBearerHourDuration: 2
+  realm: terra-viva
+  jwt:
+    secret: Rn75JRy@spVfZIloZZlqv267@tPvS4Gq
+    issuer: buds-security
+    jwtRefreshHourDuration: 8760
+    jwtBearerHourDuration: 2
 
 ---
 ## LOCAL profile
 spring:
-    config:
-        activate:
-            on-profile:
-                - local
-    datasource:
-        url: jdbc:h2:file:./h2-data/h2
-        driver-class-name: org.h2.Driver
-        username: sa
-        password: ''
-    h2:
-        console:
-            enabled: true
-            path: /h2
+  config:
+    activate:
+      on-profile:
+        - local
+  datasource:
+    url: jdbc:h2:file:./h2-data/h2
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+      path: /h2
 
-    jpa:
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.H2Dialect
-                globally_quoted_identifiers: true
-        hibernate:
-            ddl-auto: update
-        show_sql: true
-        open-in-view: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        globally_quoted_identifiers: true
+    hibernate:
+      ddl-auto: update
+    show_sql: true
+    open-in-view: true
 
 
 ---
 ## TEST profile
 spring:
-    config:
-        activate:
-            on-profile:
-                - test
-    #Peristence Properties
-    datasource:
-        driver-class-name: org.mariadb.jdbc.Driver
-        username: terra_viva_admin
-    jpa:
-        show-sql: true
-        properties:
-          hibernate:
-            format_sql: true
-        hibernate:
-            ddl-auto: none
-            dialect: org.hibernate.dialect.MariaDB107Dialect
-        open-in-view: true
+  config:
+    activate:
+      on-profile:
+        - test
+  #Peristence Properties
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: terra_viva_admin
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.MariaDB107Dialect
+    open-in-view: true
 
 ---
 
 ## LOCAL and TEST profile
 spring:
-    config:
-        activate:
-            on-profile:
-                - test
-                - local.
+  config:
+    activate:
+      on-profile:
+        - test
+        - local
+
 #Logging Properties
 logging:
-    level:
-        com:
-            github:
-                terravivaproject:
-                    terraviva: DEBUG
-        org:
-            hibernate:
-                type:
-                    descriptor:
-                        sql: trace
+  level:
+    com:
+      github:
+        terravivaproject:
+          terraviva: DEBUG
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace

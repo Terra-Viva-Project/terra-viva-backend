@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * ConfirmationRepository interface.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Repository
 public interface ConfirmationRepository extends JpaRepository<Confirmation, UUID> {
 }

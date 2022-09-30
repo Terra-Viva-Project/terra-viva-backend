@@ -44,7 +44,26 @@ public class ErrorMessagesService {
     private static String notEnoughAuthorization;
     @Getter
     private static String unauthorized;
+    @Getter
+    private static String unauthenticated;
 
+    /**
+     * Constructor for ErrorMessagesService.
+     *
+     * @param confirmationTokenNotExist a {@link java.lang.String} object
+     * @param expirationPassed          a {@link java.lang.String} object
+     * @param roleNotExist              a {@link java.lang.String} object
+     * @param alreadyExist              a {@link java.lang.String} object
+     * @param userAlreadyExist          a {@link java.lang.String} object
+     * @param userDoesNotExist          a {@link java.lang.String} object
+     * @param resourceNotExist          a {@link java.lang.String} object
+     * @param requestError              a {@link java.lang.String} object
+     * @param tooLate                   a {@link java.lang.String} object
+     * @param emailServiceError         a {@link java.lang.String} object
+     * @param notEnoughAuthorization    a {@link java.lang.String} object
+     * @param unauthorized              a {@link java.lang.String} object
+     * @param unauthenticated           a {@link java.lang.String} object
+     */
     public ErrorMessagesService(
             @Value("${error.confirmationTokenNotExist}") String confirmationTokenNotExist,
             @Value("${error.expirationPassed}") String expirationPassed,
@@ -57,7 +76,8 @@ public class ErrorMessagesService {
             @Value("${error.tooLate}") String tooLate,
             @Value("${error.emailServiceError}") String emailServiceError,
             @Value("${error.notEnoughAuthorization}") String notEnoughAuthorization,
-            @Value("${error.unauthorized}") String unauthorized) {
+            @Value("${error.unauthorized}") String unauthorized,
+            @Value("${error.unauthenticated}") String unauthenticated) {
         ErrorMessagesService.confirmationTokenNotExist = confirmationTokenNotExist;
         ErrorMessagesService.expirationPassed = expirationPassed;
         ErrorMessagesService.roleNotExist = roleNotExist;
@@ -70,5 +90,6 @@ public class ErrorMessagesService {
         ErrorMessagesService.emailServiceError = emailServiceError;
         ErrorMessagesService.notEnoughAuthorization = notEnoughAuthorization;
         ErrorMessagesService.unauthorized = unauthorized;
+        ErrorMessagesService.unauthenticated = unauthenticated;
     }
 }

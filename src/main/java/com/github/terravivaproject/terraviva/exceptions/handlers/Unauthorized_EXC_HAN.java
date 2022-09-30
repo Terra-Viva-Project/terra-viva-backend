@@ -19,6 +19,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class Unauthorized_EXC_HAN {
+    /**
+     * confirmationJustExpiredExceptionHandler.
+     *
+     * @param e       a {@link com.github.terravivaproject.terraviva.exceptions.ConfirmationJustExpiredException} object
+     * @param request a {@link javax.servlet.http.HttpServletRequest} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @ExceptionHandler({ConfirmationJustExpiredException.class})
     public ResponseEntity<ErrorDto> confirmationJustExpiredExceptionHandler(
             ConfirmationJustExpiredException e,
@@ -28,12 +35,12 @@ public class Unauthorized_EXC_HAN {
                 new ErrorDto()
                         .setError(ErrorMessagesService.unauthorized())
                         .setErrorMessage(e.getMessage())
-                        .setStatus(HttpStatus.UNAUTHORIZED)
+                        .setStatus(HttpStatus.FORBIDDEN)
                         .setPath(
                                 request.getRequestURI()
                                         .substring(
                                                 request.getContextPath().length())),
-                HttpStatus.UNAUTHORIZED
+                HttpStatus.FORBIDDEN
         );
     }
 }

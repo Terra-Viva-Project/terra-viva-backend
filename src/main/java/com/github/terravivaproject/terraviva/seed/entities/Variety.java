@@ -14,6 +14,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+/**
+ * Variety class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Entity
 @Getter
 @Setter

@@ -1,12 +1,12 @@
-package com.github.terravivaproject.terraviva.security.configuration;
+package com.github.terravivaproject.terraviva.configurations.security;
 
 import com.github.terravivaproject.terraviva.user.entities.enumerations.UserRole;
 import com.github.terravivaproject.terraviva.user.repositories.UserRepository;
-import dev.dmgiangi.budssecurity.entity.user.SecurityUser;
-import dev.dmgiangi.budssecurity.entity.user.SecurityUserImpl;
-import dev.dmgiangi.budssecurity.providers.SecurityUserProvider;
+import dev.dmgiangi.budssecurity.authentication.provider.SecurityUserProvider;
+import dev.dmgiangi.budssecurity.securitycontext.SecurityUser;
+import dev.dmgiangi.budssecurity.securitycontext.UuidSecurityUser;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,16 +18,20 @@ import java.util.stream.Collectors;
  * @version 0.1
  * @since 22 09 2022
  */
-@Configuration("securityUserProvider")
+
+@Service
 @AllArgsConstructor
 public class CustomSecurityUserProvider implements SecurityUserProvider {
     private final UserRepository userRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public SecurityUser getUserByIdentifier(String identifier) {
+    public SecurityUser findUserByIdentifier(String identifier) {
         return userRepository.getByUsernameOrEmail(identifier)
-                .map(u -> new SecurityUserImpl(
-                                u.getId().toString(),
+                .map(u -> new UuidSecurityUser(
+                                u.getId(),
                                 u.getPassword(),
                                 u.getRoles()
                                         .stream()

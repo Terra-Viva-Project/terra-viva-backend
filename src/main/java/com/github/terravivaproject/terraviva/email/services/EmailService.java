@@ -28,6 +28,15 @@ import javax.mail.internet.MimeMessage;
 public class EmailService {
     private final JavaMailSender mailSender;
 
+    /**
+     * sendMimeTo.
+     *
+     * @param emailFrom a {@link java.lang.String} object
+     * @param emailTo   a {@link java.lang.String} object
+     * @param subject   a {@link java.lang.String} object
+     * @param template  a E object
+     * @param <E>       a E class
+     */
     public <E extends EmailTemplate> void sendMimeTo(String emailFrom, String emailTo, String subject, E template) {
         //Create an empty email
         MimeMessage email = mailSender.createMimeMessage();

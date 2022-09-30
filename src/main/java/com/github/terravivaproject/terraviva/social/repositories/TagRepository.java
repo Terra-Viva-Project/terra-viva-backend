@@ -7,8 +7,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * TagRepository interface.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
+    /**
+     * findByName.
+     *
+     * @param name a {@link java.lang.String} object
+     * @return a {@link java.util.Optional} object
+     */
     public Optional<Tag> findByName(String name);
 }

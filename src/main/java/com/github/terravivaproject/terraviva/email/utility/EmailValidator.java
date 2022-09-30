@@ -10,6 +10,12 @@ import java.util.regex.Pattern;
  * @since 12 09 2022
  */
 public class EmailValidator {
+    /**
+     * isValidEmail.
+     *
+     * @param email a {@link java.lang.String} object
+     * @return a boolean
+     */
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +

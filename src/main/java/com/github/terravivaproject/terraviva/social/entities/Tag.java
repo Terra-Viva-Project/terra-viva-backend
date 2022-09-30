@@ -14,7 +14,14 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Tag class.
+ *
+ * @author giangi
+ * @version $Id: $Id
+ */
 @Entity
+@Table
 @Accessors(chain = true)
 @Setter
 @Getter
@@ -41,12 +48,22 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private Set<Post> relatedPost;
 
+    /**
+     * Getter for the field <code>followers</code>.
+     *
+     * @return a {@link java.util.Set} object
+     */
     public Set<AppUser> getFollowers() {
         if (followers == null)
             followers = new HashSet<>();
         return followers;
     }
 
+    /**
+     * Getter for the field <code>relatedPost</code>.
+     *
+     * @return a {@link java.util.Set} object
+     */
     public Set<Post> getRelatedPost() {
         if (relatedPost == null)
             relatedPost = new HashSet<>();
