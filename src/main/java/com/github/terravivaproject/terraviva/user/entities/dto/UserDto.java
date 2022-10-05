@@ -35,8 +35,7 @@ public class UserDto extends BasicUserDto {
     @Schema(example = "04-set-2022")
     private LocalDate birthDate;
 
-    @DateTimeFormat(pattern = "dd-MMM-yyyy hh:mm:ss")
-    @Schema(example = "04-set-2022 18:55:32")
+
     private LocalDateTime subscribedOn;
 
     @Schema(example = "true")

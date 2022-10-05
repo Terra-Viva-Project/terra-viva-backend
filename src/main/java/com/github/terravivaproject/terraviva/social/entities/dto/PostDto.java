@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -28,8 +27,7 @@ public class PostDto extends PostRto {
     @UuidValidation
     private UUID id;
 
-    @DateTimeFormat(pattern = "dd-MMM-yyyy hh:mm:ss")
-    private LocalDateTime creationDateTime;
+        private LocalDateTime creationDateTime;
 
     @NotNull
     @UuidValidation
