@@ -1,9 +1,11 @@
 package com.github.terravivaproject.terraviva.exceptions.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
@@ -20,9 +22,19 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class ErrorDto {
+    @DateTimeFormat(pattern = "dd-MMM-yyyy hh:mm:ss")
+    @Schema(example = "04-set-2022 18:55:32")
     private final LocalDateTime timestamp = LocalDateTime.now();
+
+    @Schema(example = "XXX STATUS_MESSAGE")
     private HttpStatus status;
+
+    @Schema(example = "General error message")
     private String error;
+
+    @Schema(example = "Specific error message")
     private String errorMessage;
+
+    @Schema(example = "/users/lory")
     private String path;
 }

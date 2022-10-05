@@ -3,7 +3,6 @@ package com.github.terravivaproject.terraviva.social.services;
 import com.github.terravivaproject.terraviva.exceptions.EntityDoesNotExist;
 import com.github.terravivaproject.terraviva.social.entities.Tag;
 import com.github.terravivaproject.terraviva.social.entities.dto.TagDto;
-import com.github.terravivaproject.terraviva.social.entities.dto.TagRto;
 import com.github.terravivaproject.terraviva.social.entities.mappers.TagMapper;
 import com.github.terravivaproject.terraviva.social.repositories.TagRepository;
 import com.github.terravivaproject.terraviva.user.entities.AppUser;
@@ -51,64 +50,6 @@ public class TagService {
     }
 
     /**
-     * createTag.
-     *
-     * @param tagRto a {@link com.github.terravivaproject.terraviva.social.entities.dto.TagRto} object
-     * @return a {@link com.github.terravivaproject.terraviva.social.entities.dto.TagDto} object
-     */
-    public TagDto createTag(TagRto tagRto) {
-
-        Optional<Tag> optionalTag = tagRepository.findByName(tagRto.getName());
-        if (optionalTag.isEmpty()) {
-            Tag tag = new Tag();
-            tag.setName(tagRto.getName());
-            tagRepository.save(tag);
-            return new TagDto()
-                    .setName(tag.getName())
-                    .setId(tag.getId());
-        } else {
-            return new TagDto()
-                    .setName(optionalTag.get().getName())
-                    .setId(optionalTag.get().getId());
-
-        }
-    }
-
-    /**
-     * getAllTags.
-     *
-     * @return a {@link java.util.List} object
-     */
-    public List<TagDto> getAllTags() {
-        List<Tag> tagList = tagRepository.findAll();
-
-        List<TagDto> tagDtoList = new ArrayList<>();
-        for (Tag tag : tagList) {
-            tagDtoList.add(new TagDto()
-                    .setId(tag.getId())
-                    .setName(tag.getName())
-            );
-        }
-        return tagDtoList;
-    }
-
-
-    /**
-     * getSingleTag.
-     *
-     * @param id a {@link java.lang.Long} object
-     * @return a {@link com.github.terravivaproject.terraviva.social.entities.dto.TagDto} object
-     */
-    public TagDto getSingleTag(Long id) {
-        Optional<Tag> tag = tagRepository.findById(id);
-        if (tag.isEmpty()) throw new RuntimeException("This tag does not exist");
-
-        return new TagDto()
-                .setId(tag.get().getId())
-                .setName(tag.get().getName());
-    }
-
-    /**
      * getTagByName.
      *
      * @param tagName a {@link java.lang.String} object
@@ -133,6 +74,11 @@ public class TagService {
 
     }
 
+    /**
+     * <p>followTag.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     */
     public void followTag(String tagName) {
         Tag tag = this.getTagByName(tagName)
                 .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
@@ -144,6 +90,14 @@ public class TagService {
         tagRepository.save(tag);
     }
 
+    /**
+     * <p>getTagFollower.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     * @param page    a {@link java.lang.Integer} object
+     * @param size    a {@link java.lang.Integer} object
+     * @return a {@link org.springframework.data.domain.Page} object
+     */
     public Page<MinimalUserDto> getTagFollower(String tagName, Integer page, Integer size) {
         Tag tag = this.getTagByName(tagName)
                 .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
@@ -162,6 +116,11 @@ public class TagService {
         return new PageImpl<>(tagFollower, pageable, tagFollower.size());
     }
 
+    /**
+     * <p>unfollowTag.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     */
     public void unfollowTag(String tagName) {
         Tag tag = this.getTagByName(tagName)
                 .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")

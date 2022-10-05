@@ -36,7 +36,7 @@ public class UserAlreadyExist_EXC_HAN {
                 .body(new MultipleErrorDto()
                         .setError(ErrorMessagesService.userAlreadyExist())
                         .setErrorMessages(e.getMessages())
-                        .setStatus(HttpStatus.BAD_REQUEST)
+                        .setStatus(HttpStatus.CONFLICT)
                         .setPath(
                                 request.getRequestURI()
                                         .substring(

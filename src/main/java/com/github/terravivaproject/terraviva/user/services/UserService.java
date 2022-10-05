@@ -86,11 +86,23 @@ public class UserService {
         // TODO: 29/09/22 If second exception is thrown all must be logged because the severity is HIGH
     }
 
+    /**
+     * <p>getUserByUsername.</p>
+     *
+     * @param username a {@link java.lang.String} object
+     * @return a {@link com.github.terravivaproject.terraviva.user.entities.AppUser} object
+     */
     public AppUser getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityDoesNotExist(ErrorMessagesService.resourceNotExist()));
     }
 
+    /**
+     * <p>getTagsFollowedBy.</p>
+     *
+     * @param user a {@link com.github.terravivaproject.terraviva.user.entities.AppUser} object
+     * @return a {@link java.util.List} object
+     */
     public List<TagDto> getTagsFollowedBy(AppUser user) {
         return user
                 .getFollowedTags()

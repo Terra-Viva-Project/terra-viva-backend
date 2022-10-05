@@ -5,14 +5,17 @@ project:
 #Api Documentation Properties
 springdoc:
   auto-tag-classes: false
+  override-with-generic-response: true
+  swagger-ui:
+    path: /swagger-ui.html
 
 #Prevent report stacktrace in response
 server:
+  port: 8090
   error:
     include-stacktrace: NEVER
 
 spring:
-
   #Locale Properties
   web:
     locale: en_US

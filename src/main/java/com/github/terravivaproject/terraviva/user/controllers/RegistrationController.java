@@ -1,5 +1,7 @@
 package com.github.terravivaproject.terraviva.user.controllers;
 
+import com.github.terravivaproject.terraviva.exceptions.model.ErrorDto;
+import com.github.terravivaproject.terraviva.exceptions.model.MultipleErrorDto;
 import com.github.terravivaproject.terraviva.resources.DeployDataService;
 import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.entities.dto.RegistrationRequestDto;
@@ -8,7 +10,13 @@ import com.github.terravivaproject.terraviva.user.entities.mappers.UserMapper;
 import com.github.terravivaproject.terraviva.user.services.ConfirmationService;
 import com.github.terravivaproject.terraviva.user.services.RegistrationService;
 import dev.dmgiangi.budssecurity.authorizations.annotations.Public;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,6 +35,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/registration")
 @RequiredArgsConstructor
+@Tag(name = "Registration", description = "Registration Related Endpoint")
 public class RegistrationController {
     private final RegistrationService registrationService;
     private final ConfirmationService confirmationService;
@@ -38,8 +47,33 @@ public class RegistrationController {
      * @param request the request
      * @return the response entity
      */
+
     @Public
-    @PostMapping
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(
+            summary = "create a user",
+            description = "create a new user",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "new user created",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserDto.class))),
+
+                    @ApiResponse(
+                            responseCode = "409",
+                            description = "the user already exist",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = MultipleErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Payload are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = MultipleErrorDto.class)))
+            })
     public ResponseEntity<UserDto> register(@Valid @RequestBody RegistrationRequestDto request) {
         //Register the user
         AppUser appUser = registrationService.register(request);
@@ -69,8 +103,39 @@ public class RegistrationController {
      * @return the response entity
      */
     @Public
-    @GetMapping("confirm")
-    public ResponseEntity<Void> confirmRegistration(@RequestParam UUID token) {
+    @GetMapping(value = "confirm")
+    @Operation(
+            summary = "confirm a user",
+            description = "confirm user email by giving confirmation token",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "User is verified",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserDto.class))),
+
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "the user does not exist",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "406",
+                            description = "the confirmation token is just expired",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
+            })
+    public ResponseEntity<Void> confirmRegistration(
+            @RequestParam @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID token) {
         //Verify the user with the given token
         confirmationService.verifyUser(token);
 
