@@ -28,7 +28,7 @@ public class MultipleErrorDto {
     @Schema(example = "04-set-2022 18:55:32")
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    @Schema(example = "404 NOT FOUND")
+    @Schema(example = "400 BAD REQUEST")
     private HttpStatus status;
 
     @Schema(example = "There are error in some field")

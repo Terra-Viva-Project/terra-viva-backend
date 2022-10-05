@@ -26,13 +26,13 @@ public class ErrorDto {
     @Schema(example = "04-set-2022 18:55:32")
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    @Schema(example = "404 NOT FOUND")
+    @Schema(example = "XXX STATUS_MESSAGE")
     private HttpStatus status;
 
-    @Schema(example = "The searched resource doesn't exist.")
+    @Schema(example = "General error message")
     private String error;
 
-    @Schema(example = "The requested resource [resource] doesn't exist")
+    @Schema(example = "Specific error message")
     private String errorMessage;
 
     @Schema(example = "/users/lory")

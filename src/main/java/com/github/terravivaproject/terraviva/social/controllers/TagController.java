@@ -59,7 +59,13 @@ public class TagController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
                                             arraySchema = @Schema(implementation = Page.class),
-                                            schema = @Schema(implementation = PostDto.class))))
+                                            schema = @Schema(implementation = PostDto.class)))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
             })
     public Page<PostDto> lastUpdatedPostPerTag(
             @PathVariable @Schema(example = "raccolta") String tagName,
@@ -85,7 +91,6 @@ public class TagController {
     @Public
     @GetMapping
     @Operation(
-            tags = {"Post"},
             summary = "Recent updated tag",
             description = "return a paged list of tag ordered by recent updated first",
             responses = {
@@ -96,7 +101,13 @@ public class TagController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
                                             arraySchema = @Schema(implementation = Page.class),
-                                            schema = @Schema(implementation = TagDto.class))))
+                                            schema = @Schema(implementation = TagDto.class)))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
             })
     public Page<TagDto> getUpdatedTags(
             @RequestParam(required = false, defaultValue = "0") Integer page,
@@ -198,6 +209,12 @@ public class TagController {
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
             })
     public Page<MinimalUserDto> getTagFollowers(
             @PathVariable @Schema(example = "pomodori") String tagName,

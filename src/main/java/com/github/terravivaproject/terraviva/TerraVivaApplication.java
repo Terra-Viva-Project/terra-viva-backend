@@ -17,8 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import java.util.List;
-
 /**
  * TerraVivaApplication class.
  *
@@ -54,22 +52,18 @@ public class TerraVivaApplication {
         var mapErrorDto = new MapSchema()
                 .addPatternProperty("value",
                         new ArraySchema()
-                                .items(new StringSchema())
-                                .examples(List.of(
-                                        "sfsrf",
-                                        "aefesfs"
-                                )))
-                .addProperty("username",
+                                .items(new StringSchema()))
+                .addProperty("field_1",
                         new ArraySchema()
                                 .items(
                                         new StringSchema()
-                                                .example("'username must be not null', 'username must be at least 2 character long'")
+                                                .example("'error 1 on field_1', 'error 2 on field_1'")
                                 ))
-                .addProperty("password",
+                .addProperty("field_2",
                         new ArraySchema()
                                 .items(
                                         new StringSchema()
-                                                .example("'password must be not null', 'password must contains at leas 1 number'")
+                                                .example("'error 1 on field_2', 'error 2 on field_2'")
                                 ));
 
         return new OpenAPI()

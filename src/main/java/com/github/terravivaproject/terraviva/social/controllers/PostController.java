@@ -1,6 +1,7 @@
 package com.github.terravivaproject.terraviva.social.controllers;
 
 import com.github.terravivaproject.terraviva.exceptions.model.ErrorDto;
+import com.github.terravivaproject.terraviva.exceptions.model.MultipleErrorDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.PostDto;
 import com.github.terravivaproject.terraviva.social.entities.dto.PostRto;
 import com.github.terravivaproject.terraviva.social.entities.mappers.PostMapper;
@@ -57,6 +58,12 @@ public class PostController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = PostDto.class))),
                     @ApiResponse(
+                            responseCode = "400",
+                            description = "The payload cannot be validated",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = MultipleErrorDto.class))),
+                    @ApiResponse(
                             responseCode = "404",
                             description = "The authenticated user doesn't exist",
                             content = @Content(
@@ -99,7 +106,7 @@ public class PostController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = PostDto.class))),
                     @ApiResponse(
-                            responseCode = "404",
+                            responseCode = "400",
                             description = "Post does not exists",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -137,6 +144,12 @@ public class PostController {
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "The post does not exists",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
             })
     public ResponseEntity<Void> deleteSinglePost(
             @PathVariable @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID id) {

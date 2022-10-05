@@ -62,6 +62,12 @@ public class UserController {
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
             })
     public UserDto getUserById(@PathVariable @Schema(example = "andrea") String username) {
         return UserMapper.MAP.userToUserDto(
@@ -92,6 +98,12 @@ public class UserController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "User does not exists",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ErrorDto.class)))

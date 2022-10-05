@@ -8,7 +8,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -32,9 +31,6 @@ public class MethodArgumentNotValid_EXC_HAN {
      * @return a {@link org.springframework.http.ResponseEntity} object
      */
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    @ResponseStatus(
-            value = HttpStatus.BAD_REQUEST,
-            reason = "the server cannot validate the arguments of the request")
     public ResponseEntity<MultipleErrorDto> methodArgumentNotValidExceptionHandler(
             MethodArgumentNotValidException e,
             HttpServletRequest request) {

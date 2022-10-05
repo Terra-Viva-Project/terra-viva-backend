@@ -67,6 +67,12 @@ public class RegistrationController {
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = MultipleErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Payload are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = MultipleErrorDto.class)))
             })
     public ResponseEntity<UserDto> register(@Valid @RequestBody RegistrationRequestDto request) {
         //Register the user
@@ -121,6 +127,12 @@ public class RegistrationController {
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ErrorDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Parameters are not formerly valid",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)))
             })
     public ResponseEntity<Void> confirmRegistration(
             @RequestParam @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID token) {
