@@ -5,8 +5,8 @@ import com.github.terravivaproject.terraviva.exceptions.model.ErrorDto;
 import com.github.terravivaproject.terraviva.resources.ErrorMessagesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 0.1
  * @since 10 09 2022
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class ConfirmationJustExpired_EXC_HAN {
     /**
      * confirmationJustExpiredExceptionHandler.
@@ -35,7 +35,7 @@ public class ConfirmationJustExpired_EXC_HAN {
                 new ErrorDto()
                         .setError(ErrorMessagesService.tooLate())
                         .setErrorMessage(e.getMessage())
-                        .setStatus(HttpStatus.NOT_FOUND)
+                        .setStatus(HttpStatus.NOT_ACCEPTABLE)
                         .setPath(
                                 request.getRequestURI()
                                         .substring(

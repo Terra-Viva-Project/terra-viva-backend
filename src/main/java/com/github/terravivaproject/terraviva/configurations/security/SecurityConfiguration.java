@@ -14,7 +14,5 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(BudsSecurityConfiguration.class)
 public class SecurityConfiguration {
-
-
 }
 
