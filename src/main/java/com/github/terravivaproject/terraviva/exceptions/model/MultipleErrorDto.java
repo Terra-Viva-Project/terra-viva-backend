@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
@@ -24,8 +23,7 @@ import java.util.Map;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class MultipleErrorDto {
-    @DateTimeFormat(pattern = "dd-MMM-yyyy hh:mm:ss")
-    @Schema(example = "04-set-2022 18:55:32")
+
     private final LocalDateTime timestamp = LocalDateTime.now();
 
     @Schema(example = "400 BAD REQUEST")

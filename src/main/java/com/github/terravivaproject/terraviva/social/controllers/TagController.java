@@ -8,7 +8,6 @@ import com.github.terravivaproject.terraviva.social.services.TagService;
 import com.github.terravivaproject.terraviva.user.entities.dto.MinimalUserDto;
 import dev.dmgiangi.budssecurity.authorizations.annotations.Public;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -55,11 +54,8 @@ public class TagController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Page is returned",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(
-                                            arraySchema = @Schema(implementation = Page.class),
-                                            schema = @Schema(implementation = PostDto.class)))),
+                            useReturnTypeSchema = true
+                    ),
                     @ApiResponse(
                             responseCode = "400",
                             description = "Parameters are not formerly valid",
@@ -97,11 +93,8 @@ public class TagController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Page is returned",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(
-                                            arraySchema = @Schema(implementation = Page.class),
-                                            schema = @Schema(implementation = TagDto.class)))),
+                            useReturnTypeSchema = true
+                    ),
                     @ApiResponse(
                             responseCode = "400",
                             description = "Parameters are not formerly valid",
@@ -198,11 +191,8 @@ public class TagController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "The tag is followed",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(
-                                            arraySchema = @Schema(implementation = Page.class),
-                                            schema = @Schema(implementation = MinimalUserDto.class)))),
+                            useReturnTypeSchema = true
+                    ),
                     @ApiResponse(
                             responseCode = "404",
                             description = "No tag found with this name",

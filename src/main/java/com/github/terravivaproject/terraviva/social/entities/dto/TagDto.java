@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -23,8 +22,6 @@ public class TagDto extends TagRto {
     @Schema(example = "5")
     private long id;
 
-    @DateTimeFormat(pattern = "dd-MMM-yyyy hh:mm:ss")
-    @Schema(example = "04-set-2022 18:55:32")
     private LocalDateTime updatedOn;
 
     /**
