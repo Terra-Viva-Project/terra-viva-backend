@@ -51,6 +51,11 @@ public class TestController {
                         </html>""";
     }
 
+    /**
+     * <p>publicEndpoint.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     @Public
     @GetMapping("public")
     @Operation(

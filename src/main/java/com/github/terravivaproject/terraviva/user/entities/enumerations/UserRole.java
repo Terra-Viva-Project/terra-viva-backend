@@ -18,14 +18,14 @@ public enum UserRole {
     USER(1),
     ADMIN(2);
 
+    private final int code;
+
     /**
      * fromString.
      *
      * @param role a {@link java.lang.String} object
      * @return a {@link com.github.terravivaproject.terraviva.user.entities.enumerations.UserRole} object
      */
-    private final int code;
-
     public static UserRole fromString(String role) {
         return role == null
                 ? null

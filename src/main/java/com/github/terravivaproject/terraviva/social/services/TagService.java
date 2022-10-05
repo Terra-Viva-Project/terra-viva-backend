@@ -74,6 +74,11 @@ public class TagService {
 
     }
 
+    /**
+     * <p>followTag.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     */
     public void followTag(String tagName) {
         Tag tag = this.getTagByName(tagName)
                 .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
@@ -85,6 +90,14 @@ public class TagService {
         tagRepository.save(tag);
     }
 
+    /**
+     * <p>getTagFollower.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     * @param page    a {@link java.lang.Integer} object
+     * @param size    a {@link java.lang.Integer} object
+     * @return a {@link org.springframework.data.domain.Page} object
+     */
     public Page<MinimalUserDto> getTagFollower(String tagName, Integer page, Integer size) {
         Tag tag = this.getTagByName(tagName)
                 .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")
@@ -103,6 +116,11 @@ public class TagService {
         return new PageImpl<>(tagFollower, pageable, tagFollower.size());
     }
 
+    /**
+     * <p>unfollowTag.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     */
     public void unfollowTag(String tagName) {
         Tag tag = this.getTagByName(tagName)
                 .orElseThrow(() -> new EntityDoesNotExist("this tag does not exist")

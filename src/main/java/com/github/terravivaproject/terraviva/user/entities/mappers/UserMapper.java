@@ -41,5 +41,11 @@ public interface UserMapper {
      */
     AppUser registrationRequestDtoToUser(RegistrationRequestDto request);
 
+    /**
+     * <p>entityToMinimalDto.</p>
+     *
+     * @param u a {@link com.github.terravivaproject.terraviva.user.entities.AppUser} object
+     * @return a {@link com.github.terravivaproject.terraviva.user.entities.dto.MinimalUserDto} object
+     */
     MinimalUserDto entityToMinimalDto(AppUser u);
 }

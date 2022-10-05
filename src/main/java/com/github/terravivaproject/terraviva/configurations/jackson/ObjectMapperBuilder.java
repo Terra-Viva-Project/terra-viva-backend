@@ -21,6 +21,11 @@ public class ObjectMapperBuilder {
     private static final String DATE_PATTERN = "dd-MMM-yyy";
     private static final String TIME_PATTERN = "HH:mm:ss";
 
+    /**
+     * <p>jackson2ObjectMapperBuilder.</p>
+     *
+     * @return a {@link org.springframework.http.converter.json.Jackson2ObjectMapperBuilder} object
+     */
     @Bean
     public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
         return new Jackson2ObjectMapperBuilder()

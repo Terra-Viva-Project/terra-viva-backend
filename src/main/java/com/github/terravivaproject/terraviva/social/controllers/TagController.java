@@ -110,6 +110,12 @@ public class TagController {
         return tagService.getPagedRecentUpdatedTag(size, page);
     }
 
+    /**
+     * <p>followTag.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @PutMapping(value = "follow/{tagName}")
     @Operation(
             summary = "follow a tag",
@@ -134,6 +140,12 @@ public class TagController {
         return ResponseEntity.ok(null);
     }
 
+    /**
+     * <p>unfollowTag.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     * @return a {@link org.springframework.http.ResponseEntity} object
+     */
     @DeleteMapping("unfollow/{tagName}")
     @Operation(
             summary = "follow a tag",
@@ -158,6 +170,14 @@ public class TagController {
         return ResponseEntity.ok(null);
     }
 
+    /**
+     * <p>getTagFollowers.</p>
+     *
+     * @param tagName a {@link java.lang.String} object
+     * @param page    a {@link java.lang.Integer} object
+     * @param size    a {@link java.lang.Integer} object
+     * @return a {@link org.springframework.data.domain.Page} object
+     */
     @Public
     @GetMapping("follower/{tagName}")
     @Operation(

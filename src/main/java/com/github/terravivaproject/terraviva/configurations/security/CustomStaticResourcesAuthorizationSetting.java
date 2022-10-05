@@ -15,6 +15,9 @@ import java.util.Map;
  */
 @Component
 public class CustomStaticResourcesAuthorizationSetting implements StaticResourcesAuthorizationSetting {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getPublicResourcesPath() {
         return List.of(
@@ -22,6 +25,9 @@ public class CustomStaticResourcesAuthorizationSetting implements StaticResource
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, List<String>> getProtectedResourcesNeededAuthorization() {
         return null;

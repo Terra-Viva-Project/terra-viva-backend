@@ -27,6 +27,9 @@ public class TagDto extends TagRto {
     @Schema(example = "04-set-2022 18:55:32")
     private LocalDateTime updatedOn;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TagDto setName(String name) {
         super.setName(name);

@@ -69,6 +69,12 @@ public class UserController {
         );
     }
 
+    /**
+     * <p>getFollowedTags.</p>
+     *
+     * @param username a {@link java.lang.String} object
+     * @return a {@link java.util.List} object
+     */
     @Public
     @GetMapping("/{username}/followed-tags")
     @Operation(
