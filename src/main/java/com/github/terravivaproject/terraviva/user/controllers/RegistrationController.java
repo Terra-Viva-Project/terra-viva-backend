@@ -2,7 +2,6 @@ package com.github.terravivaproject.terraviva.user.controllers;
 
 import com.github.terravivaproject.terraviva.exceptions.model.ErrorDto;
 import com.github.terravivaproject.terraviva.exceptions.model.MultipleErrorDto;
-import com.github.terravivaproject.terraviva.resources.DeployDataService;
 import com.github.terravivaproject.terraviva.user.entities.AppUser;
 import com.github.terravivaproject.terraviva.user.entities.dto.RegistrationRequestDto;
 import com.github.terravivaproject.terraviva.user.entities.dto.UserDto;
@@ -39,7 +38,6 @@ import java.util.UUID;
 public class RegistrationController {
     private final RegistrationService registrationService;
     private final ConfirmationService confirmationService;
-    private final DeployDataService deployData;
 
     /**
      * Register response entity.
@@ -49,7 +47,7 @@ public class RegistrationController {
      */
 
     @Public
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(
             summary = "create a user",
             description = "create a new user",
