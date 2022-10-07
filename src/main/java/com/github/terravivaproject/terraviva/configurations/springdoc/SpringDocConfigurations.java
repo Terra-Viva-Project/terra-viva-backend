@@ -11,6 +11,7 @@ import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.MapSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.SpringDocUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * class
@@ -76,8 +78,11 @@ public class SpringDocConfigurations {
         ;//.replaceWithClass(org.springframework.data.domain.Pageable.class, Pageable.class);
 
         return new OpenAPI()
-                .components(
-                        new Components())
+                .servers(List.of(
+                        new Server()
+                                .description("Test Server")
+                                .url("https://terra-viva.dmgiangi.dev")
+                ))
                 .info(
                         new Info()
                                 .title("Terra Viva")

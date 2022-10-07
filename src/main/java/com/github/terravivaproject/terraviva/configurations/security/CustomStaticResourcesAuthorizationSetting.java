@@ -21,7 +21,9 @@ public class CustomStaticResourcesAuthorizationSetting implements StaticResource
     @Override
     public List<String> getPublicResourcesPath() {
         return List.of(
-                "/swagger-ui/.*"
+                "/swagger-ui.*",
+                "/v3/api-docs.*",
+                "/error.*"
         );
     }
 
